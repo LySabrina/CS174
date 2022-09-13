@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>In-Class Practice: Registration Form</title>
+</head>
+<body>
+    <form name="myForm" method="POST" >
+        <label for="fname">First name: </label>
+        <input type = "text" id="fname" name="firstName" placeholder="Enter your first name" size = 20 maxlength=30/>
+        <br/>
+        <label for="lname">Last name:</label>
+        <input type = "text" id="lname" name="lastName" placeholder="Enter your last name" size = 20 maxlength=30/>
+        <br/>
+        <label for="significantOther">I will bring a significant other with me</label>
+        <input type = "checkbox" id="significantOther"  name="significant"/>
+        <br/>
+
+        <p>Input your favorite jello:</p>
+        <input type = "radio" id="red" name="jello-red" value="red"/>
+        <label for="red">Red</label>
+
+        <input type="radio" id="green" name="jello-green" value="green"/>
+        <label for="green">Green</label>
+
+        <input type="radio" id="yelow" name="jello-yellow" value="yellow"/>
+        <label for="yellow"> Yellow</label>
+    </form>
+</body>
+</html>
