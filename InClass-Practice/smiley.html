@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Sept.14 In-Class Exercise</title>
+    <style>
+        #left{
+            height:50px;
+            width:50px;
+            border-radius: 50%;
+            background-color: black;
+        }
+
+        #white-eye{
+            height: 50%;
+            width:50%;
+            border-radius: 50%;
+            background-color: white;
+            position:relative;
+            top:10px;
+            left:12px;
+        }
+
+        #right{
+            height:50px;
+            width:50px;
+            border-radius: 50%;
+            background-color: black;
+            position: absolute;
+            top:10px;
+            left:90px;
+        }
+
+        #X{
+            position: relative;
+            top:2px;
+            left:5px;
+            font-size: x-large;
+            color: red;
+            display: none;
+        }
+        .hurt-txt{
+            display: none;
+        }
+        #left:focus-within .hurt-txt {
+            display: block;
+        }
+        #left:focus-within #X {
+            display: block;
+        }
+
+        #right:focus-within .hurt-txt{
+            display: block;
+        }
+
+        #right:focus-within #X{
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class ="eyes">
+        <div id = "left">
+            <div id="white-eye">
+                <a style="font-size:small" href="#">Click</a>
+                <span id ="X">X</span>
+            </div>
+            <br>
+            <p class="hurt-txt">Ouch! My left eye hurt</p>
+        </div> 
+
+        <div id="right">
+            <div id="white-eye">
+                <a style="font-size:small" href="#">Click</a>
+                <span id="X">X</span>
+            </div>
+            <br>
+            <p class="hurt-txt">Ouch! My right eye hurt</p>
+        </div>
+
+ 
+    </div>
+</body>
+</html>
