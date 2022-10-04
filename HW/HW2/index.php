@@ -7,7 +7,7 @@
     <title>Document</title>
 </head>
 <body>
-    <h1> <a href ="landing.php"> Original Pizza Place <a/> </h1>
+    <h1> <a href = "landingPage.php"> Original Pizza Place <a/> </h1>
 
     <?php
         function menuView(){
