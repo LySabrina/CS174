@@ -12,11 +12,38 @@
     <?php
     $pizzaFile = fopen("pizza.txt", "a");
     
-    menuView();
-    // function mainController(){
-    //     $view = (isset($_REQUEST['view']) && in_array($_REQUEST['view'], [ 'editPizzaView', 'detailView', 'confirmView'])) ? $_REQUEST['view'] . "View" : "htmlLayout";
-    //     $view("menuView");
-    // }
+    mainController();
+    function mainController(){
+    
+        $view = (isset($_REQUEST['a']) && in_array($_REQUEST['a'], ['editPizzView', 'detail', 'confirm'])) ? $_REQUEST['a'] . "Controller" : 'menuView';
+        $view();
+        
+    }
+
+    function detailController(){
+        $pizza_name = $_GET['pizza-name'];
+        $pizza_price = $_GET['pizza-name'];
+      
+        // echo (is_array($arr) ? "yer" : 'narh');
+        
+    }
+
+    function confirmController(){
+        $pizza_name = $_GET['pizza-name'];
+        $pizza_price = $_GET['pizza-price'];
+
+        echo("piiza: " . $pizza_name . "price: " . $pizza_price);
+        confirmView($_GET);
+        // $file = file('pizza.txt');
+        
+        // foreach($file as $line){
+        //     $arr = unserialize($line);
+    
+        //     if(strcmp($arr['pizza-name'], $pizza_name) == 0 && strcmp($arr['pizza-price'], $pizza_price) == 0){
+            
+        //     }
+        // }
+    }
 
     function getPizzaList(){
         if(file_exists("pizza.txt")){
@@ -64,9 +91,27 @@
                                 $pizza_name =$arr['pizza-name'];
                                 $pizza_price = $arr['pizza-price'];
                                 $ingredients = $arr['ingredients'];
-                                $str = "<tr> <td>" . $pizza_name . "</td>" . "<td>$" . $pizza_price . "</td>"; 
-                                $str .= " <td>💗💗💗</td> <td><button>✏️</button><button>🗑️</button></td>";
-                                echo $str;
+                                ?>
+                                    <tr>
+                                        <td> <a href ="index.php?a=detail&pizza-name=<?=$pizza_name?>&pizza-price=<?=$pizza_price?>"> <?=$pizza_name ?> </a>
+                                            </td>
+                                        <td> $<?=$pizza_price ?> </td>
+                                        <td>💗💗💗</td>
+                                        <td><button>✏️</button><button type='submit'>
+                                                            <a name='confirm' value='confirm' href ="index.php?a=confirm&pizza-name=<?=$pizza_name?>&pizza-price=<?=$pizza_price?>">🗑️</button></td>
+                                    </tr>
+                                <?php
+                              
+                                // $arr = unserialize($line);
+                                // $pizza_name =$arr['pizza-name'];
+                                // $pizza_price = $arr['pizza-price'];
+                                // $ingredients = $arr['ingredients'];
+                                // $str = "<tr> <td>" . $pizza_name . "</td>" . "<td>$" . $pizza_price . "</td>"; 
+                                // $str .= " <td>💗💗💗</td> <td><button>✏️</button><button>🗑️</button></td>";
+                                // echo $str;
+                            }
+                            if(isset($_REQUEST['confirm'])){
+                                echo("howdy");
                             }
                         }
                     ?>
@@ -178,8 +223,6 @@
                 fwrite($file, $arr_serialized . "\n");
                 fclose($file);
                 detailView($_POST);
-      
-         
             }   
         }
     }
@@ -204,8 +247,17 @@
     }
 
     function confirmView($data){
-        
+        ?>
+            <h1> <a href="index.php"> Original Pizza Place <a /> </h1>
+            <p>Are you sure you want to delete the bookmark: <?=$data['pizza-name'] ?> </p>
+
+            <button type ='submit' name='confirm' value='true'> <a href='index.php?a=menu'> Confirm </button> 
+            <button type ='submit' name='cancel' value = 'false'> Cancel </button>
+        <?php
     }
+        if(isset($_GET['confirm'])){
+            menuView();
+        }
 
     ?>
 </body>
