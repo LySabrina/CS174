@@ -10,7 +10,7 @@
 
 <body>
     <?php
-    $pizzaFile = fopen("pizza.txt", "w");
+    $pizzaFile = fopen("pizza.txt", "a");
     
     menuView();
     // function mainController(){
@@ -18,7 +18,26 @@
     //     $view("menuView");
     // }
 
+    function getPizzaList(){
+        if(file_exists("pizza.txt")){
+            foreach(file("pizza.txt") as $line){
+                $arr = unserialize($line);
+                $pizza_name =$arr['pizza-name'];
+                $pizza_price = $arr['pizza-price'];
+                $ingredients = $arr['ingredients'];
 
+                print("PIZZA NAME: " . $pizza_name . "\n");
+                print("PIZZA PRICE: " . $pizza_price . "\n");
+                print("INGREDIENTS: ");
+                foreach($ingredients as $i){
+                    print($i . " ");
+                }
+            }
+        }
+        else{
+            print('file no exist');
+        }
+    }
 
     function menuView()
     {
@@ -26,6 +45,7 @@
             editPizzaView();
         }
         else{
+            // if(!empty($file))
             ?>
             <h1> <a href="index.php"> Original Pizza Place <a /> </h1>
             <h3> Menu </h3>
@@ -37,6 +57,20 @@
                         <td>Popularity</td>
                         <td>Actions</td>
                     </tr>
+                    <?php
+                          if(file_exists("pizza.txt")){
+                            foreach(file("pizza.txt") as $line){
+                                $arr = unserialize($line);
+                                $pizza_name =$arr['pizza-name'];
+                                $pizza_price = $arr['pizza-price'];
+                                $ingredients = $arr['ingredients'];
+                                $str = "<tr> <td>" . $pizza_name . "</td>" . "<td>$" . $pizza_price . "</td>"; 
+                                $str .= " <td>💗💗💗</td> <td><button>✏️</button><button>🗑️</button></td>";
+                                echo $str;
+                            }
+                        }
+                    ?>
+                 
                     <tr>
                         <td>Saucy Pie</td>
                         <td>$12</td>
@@ -128,14 +162,24 @@
         }
         else if(isset($_POST['submit'])){
             print_r($_POST);        //array of all your stuff
+            print("\n");
             if($_POST['pizza-name'] == null || $_POST['pizza-price'] == null){
                 echo("Cannot enter pizza without a name AND price");
             }
             else{
+                $pizza_name = $_POST['pizza-name'];
+                $pizza_price = $_POST['pizza-price'];       
+                $ingredients = $_POST['ingredient'];        //array of ingredient
+                
+                $arr = ['pizza-name' => $pizza_name, 'pizza-price' => $pizza_price, 'ingredients' => $ingredients];
+
+                $arr_serialized = serialize($arr);
+                $file = fopen("pizza.txt", "a");
+                fwrite($file, $arr_serialized . "\n");
+                fclose($file);
                 detailView($_POST);
       
-                // $file = fopen("pizza.txt", "w");
-                // detailView($_POST);
+         
             }   
         }
     }
@@ -143,6 +187,7 @@
 
     function detailView($data){
         ?>
+            <h1> <a href="index.php"> Original Pizza Place <a /> </h1>
             <h2> <?= $data['pizza-name'] ?> </h2>
             <p> Price: <?= $data['pizza-price'] ?> </p>
             <ul>
