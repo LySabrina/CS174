@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>CS174 - Assignment #2</title>
 </head>
 
 <body>
@@ -14,18 +14,25 @@
     
     mainController();
     function mainController(){
-    
-        $view = (isset($_REQUEST['a']) && in_array($_REQUEST['a'], ['editPizzView', 'detail', 'confirm'])) ? $_REQUEST['a'] . "Controller" : 'menuView';
+        $view = (isset($_REQUEST['a']) && in_array($_REQUEST['a'], ['edit', 'detail', 'confirm'])) ? $_REQUEST['a'] . "Controller" : 'menuView';
         $view();
         
     }
+    function editController(){
 
+    }
     function detailController(){
         $pizza_name = $_GET['pizza-name'];
-        $pizza_price = $_GET['pizza-name'];
-      
-        // echo (is_array($arr) ? "yer" : 'narh');
+        $pizza_price = $_GET['pizza-price'];
         
+        foreach(file('pizza.txt') as $line){
+            $arr = unserialize($line);
+        
+            if($arr['pizza-name']  == $pizza_name && $arr['pizza-price'] == $pizza_price){
+                detailView($arr);
+                
+            }
+        }        
     }
 
     function confirmController(){
@@ -72,7 +79,6 @@
             editPizzaView();
         }
         else{
-            // if(!empty($file))
             ?>
             <h1> <a href="index.php"> Original Pizza Place <a /> </h1>
             <h3> Menu </h3>
@@ -86,54 +92,43 @@
                     </tr>
                     <?php
                           if(file_exists("pizza.txt")){
-                            foreach(file("pizza.txt") as $line){
-                                $arr = unserialize($line);
-                                $pizza_name =$arr['pizza-name'];
-                                $pizza_price = $arr['pizza-price'];
-                                $ingredients = $arr['ingredients'];
-                                ?>
-                                    <tr>
-                                        <td> <a href ="index.php?a=detail&pizza-name=<?=$pizza_name?>&pizza-price=<?=$pizza_price?>"> <?=$pizza_name ?> </a>
+                            $myFile = file_get_contents("pizza.txt");
+                            if(strcmp($myFile, "") == 0){
+                                echo("No current made pizza. Please make some");
+                            }
+                            else{
+                                foreach(file("pizza.txt") as $line){
+                                    $arr = unserialize($line);
+                                    $pizza_name =$arr['pizza-name'];
+                                    $pizza_price = $arr['pizza-price'];
+                                    $ingredients = $arr['ingredients'];
+                                    ?>
+                                        <tr>
+                                            <td> <a href ="index.php?a=detail&pizza-name=<?=$pizza_name?>&pizza-price=<?=$pizza_price?>"> <?=$pizza_name ?> </a>
+                                                </td>
+                                            <td> $<?=$pizza_price ?> </td>
+                                            <td>💗💗💗</td>
+                                            <td><button type='submit'> <a name='edit' value ='edit' href="index.php?a=edit&pizza-name<?=$pizza_name?>">✏️</a></button>
+                                            <button type='submit'><a name='confirm' value='confirm' href ="index.php?a=confirm&pizza-name=<?=$pizza_name?>&pizza-price=<?=$pizza_price?>">🗑️</button>
                                             </td>
-                                        <td> $<?=$pizza_price ?> </td>
-                                        <td>💗💗💗</td>
-                                        <td><button>✏️</button><button type='submit'>
-                                                            <a name='confirm' value='confirm' href ="index.php?a=confirm&pizza-name=<?=$pizza_name?>&pizza-price=<?=$pizza_price?>">🗑️</button></td>
-                                    </tr>
-                                <?php
-                              
-                                // $arr = unserialize($line);
-                                // $pizza_name =$arr['pizza-name'];
-                                // $pizza_price = $arr['pizza-price'];
-                                // $ingredients = $arr['ingredients'];
-                                // $str = "<tr> <td>" . $pizza_name . "</td>" . "<td>$" . $pizza_price . "</td>"; 
-                                // $str .= " <td>💗💗💗</td> <td><button>✏️</button><button>🗑️</button></td>";
-                                // echo $str;
+                                        </tr>
+                                    <?php
+                                  
+                                    // $arr = unserialize($line);
+                                    // $pizza_name =$arr['pizza-name'];
+                                    // $pizza_price = $arr['pizza-price'];
+                                    // $ingredients = $arr['ingredients'];
+                                    // $str = "<tr> <td>" . $pizza_name . "</td>" . "<td>$" . $pizza_price . "</td>"; 
+                                    // $str .= " <td>💗💗💗</td> <td><button>✏️</button><button>🗑️</button></td>";
+                                    // echo $str;
+                                }
+                                if(isset($_REQUEST['confirm'])){
+                                    echo("howdy");
+                                }
                             }
-                            if(isset($_REQUEST['confirm'])){
-                                echo("howdy");
-                            }
+                       
                         }
                     ?>
-                 
-                    <tr>
-                        <td>Saucy Pie</td>
-                        <td>$12</td>
-                        <td>💗💗💗</td>
-                        <td><button>✏️</button><button>🗑️</button></td>
-                    </tr>
-                    <tr>
-                        <td>Fromage Delight</td>
-                        <td>$13</td>
-                        <td>💗💗</td>
-                        <td><button>✏️</button><button>🗑️</button></td>
-                    </tr>
-                    <tr>
-                        <td>Peppy Pizzazz</td>
-                        <td>$15</td>
-                        <td>💗💗💗💗</td>
-                        <td><button>✏️</button><button>🗑️</button></td>
-                    </tr>
                 </table>
     
                 <button type="submit" name="create" value='create'>Create</button>
@@ -158,44 +153,44 @@
                     <tr>
                         <th></th>
                         <td>
-                            <input type="checkbox" name="ingredient[]" id="red-sauce" value="red-sauce">
+                            <input type="checkbox" name="ingredients[]" id="red-sauce" value="red-sauce">
                             <label for="red-sauce">Red Sauce</label>
                         </td>
                         <td>
-                            <input type="checkbox" name="ingredient[]" id="green-peppers" value="green-peppers">
+                            <input type="checkbox" name="ingredients[]" id="green-peppers" value="green-peppers">
                             <label for="green-peppers">Green Peppers</label>
                         </td>
                     </tr>
                     <tr>
                         <th></th>
                         <td>
-                            <input type="checkbox" name="ingredient[]" id="mozarella" value="mozarella">
+                            <input type="checkbox" name="ingredients[]" id="mozarella" value="mozarella">
                             <label for="mozarella">Mozarella</label>
                         </td>
                         <td>
-                            <input type="checkbox" name="ingredient[]" id="ham" value="ham">
+                            <input type="checkbox" name="ingredients[]" id="ham" value="ham">
                             <label for="ham">Ham</label>
                         </td>
                     </tr>
                     <tr>
                         <th></th>
                         <td>
-                            <input type="checkbox" name="ingredient[]" id="pepperoni" value="pepperoni">
+                            <input type="checkbox" name="ingredients[]" id="pepperoni" value="pepperoni">
                             <label for="pepperoni">Pepperoni</label>
                         </td>
                         <td>
-                            <input type="checkbox" name="ingredient[]" id="mushrooms" value="mushrooms">
+                            <input type="checkbox" name="ingredients[]" id="mushrooms" value="mushrooms">
                             <label for="mushrooms">Mushrooms</label>
                         </td>
                     </tr>
                     <tr>
                         <th></th>
                         <td>
-                            <input type="checkbox" name="ingredient[]"id="pineapple" value="pineapple">
+                            <input type="checkbox" name="ingredients[]"id="pineapple" value="pineapple">
                             <label for="pineapple">Pineapple</label>
                         </td>
                         <td>
-                            <input type="checkbox" name="ingredient[]" id="anchovies" value="anchovies">
+                            <input type="checkbox" name="ingredients[]" id="anchovies" value="anchovies">
                             <label for="anchovies">Anchovies</label>
                         </td>
                     </tr>
@@ -206,15 +201,15 @@
         <?php
         }
         else if(isset($_POST['submit'])){
-            print_r($_POST);        //array of all your stuff
+            // print_r($_POST);        //array of all your stuff
             print("\n");
-            if($_POST['pizza-name'] == null || $_POST['pizza-price'] == null){
+            if($_POST['pizza-name'] == null || $_POST['pizza-price'] == null){  //EDIT THIS TO TAKE USER BACK TO CUSTOMIZATION PAGE
                 echo("Cannot enter pizza without a name AND price");
             }
             else{
                 $pizza_name = $_POST['pizza-name'];
                 $pizza_price = $_POST['pizza-price'];       
-                $ingredients = $_POST['ingredient'];        //array of ingredient
+                $ingredients = $_POST['ingredients'];        
                 
                 $arr = ['pizza-name' => $pizza_name, 'pizza-price' => $pizza_price, 'ingredients' => $ingredients];
 
@@ -235,7 +230,7 @@
             <p> Price: <?= $data['pizza-price'] ?> </p>
             <ul>
                 <?php
-                    $arr = $data['ingredient'];
+                    $arr = $data['ingredients'];
                     foreach($arr as $e){
                         ?> 
                             <li> <?=$e ?> </li>
@@ -252,7 +247,7 @@
             <p>Are you sure you want to delete the bookmark: <?=$data['pizza-name'] ?> </p>
 
             <button type ='submit' name='confirm' value='true'> <a href='index.php?a=menu'> Confirm </button> 
-            <button type ='submit' name='cancel' value = 'false'> Cancel </button>
+            <button type ='submit' name='cancel' value = 'false'> <a href="index.php"> Cancel  </a></button>
         <?php
     }
         if(isset($_GET['confirm'])){
