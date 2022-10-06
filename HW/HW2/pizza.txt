@@ -1,2 +1,0 @@
-a:3:{s:10:"pizza-name";s:5:"FIRST";s:11:"pizza-price";s:2:"12";s:11:"ingredients";a:2:{i:0;s:9:"red-sauce";i:1;s:9:"mozarella";}}
-a:3:{s:10:"pizza-name";s:6:"SECOND";s:11:"pizza-price";s:2:"10";s:11:"ingredients";a:3:{i:0;s:3:"ham";i:1;s:9:"mushrooms";i:2;s:9:"anchovies";}}
