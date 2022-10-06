@@ -10,7 +10,7 @@
     <?php
 
     mainController();
-
+    
     /**
      * Gets the text file associated with pizza name such that we can modify it 
      */
@@ -50,8 +50,8 @@
         $view();
     }
 
-    function editController()
-    {
+    function editController(){
+        editPizzaView();
     }
 
     function detailController()
@@ -72,9 +72,10 @@
 
     function menuView()
     {
-        if (isset($_GET['create'])) {
-            editPizzaView();
-        } else {
+        // if (isset($_GET['create'])) {
+        //     editPizzaView();
+        // }
+        //  else {
     ?>
             <h1> <a href="index.php"> Original Pizza Place <a /> </h1>
             <h3> Menu </h3>
@@ -89,7 +90,7 @@
                     <?php
                     $arr = getAllPizzaFiles();
                     if (!count($arr)) {
-                        echo ("Empty array");
+                        echo ("No pizza made. Please make some pizza");
                     } else {
                         foreach ($arr as $f) {            //for each path file
                             $file = fopen($f, "r");      //open the file
@@ -98,7 +99,7 @@
                             $pizza_name = $arr['pizza-name'];
                             $pizza_price = $arr['pizza-price'];
                             $ingredients = $arr['ingredients'];
-                            $viewCounts = $arr['viewCounts']; // ==> not found in the array for some reason
+                            $viewCounts = $arr['viewCounts']; 
                     ?>
                             <tr>
                                 <td> <a href="index.php?a=detail&pizza-name=<?= $pizza_name ?>&pizza-price=<?= $pizza_price ?>"> <?= $pizza_name ?> </a>
@@ -107,11 +108,15 @@
                                 <td>
                                     <?php
                                     $str = "";
-                                    for ($i = 0; $i < $viewCounts && $i < 5; $i++) {
-                                        //fix for log5
+                                    
+                                    $numHearts = log($viewCounts, 5);   
+                                    //each heart has a string length of 4??
+                                    for ($i = 0; $i < $numHearts && strlen($str) < 20 ; $i++) {
+                               
                                         $str .= "💗";
+                                    
                                     }
-                                    echo ($str);
+                                    echo($str);
                                     ?>
                                 </td>
 
@@ -124,77 +129,76 @@
                     }
                     ?>
                 </table>
-
-                <button type="submit" name="create" value='create'>Create</button>
+                <button type="submit" name="a" value='edit'>Create</button>
             </form>
         <?php
-        }
+        // }
     }
 
     function editPizzaView()
     {
-        if (!isset($_POST['submit'])) {
         ?>
-            <html>
-            <h1> <a href="index.php"> Original Pizza Place <a /> </h1>
-            <h3> Pie Editor </h3>
-            <form method="POST">
-                <input type="text" name="pizza-name" placeholder="Pizza Name" />
-                <input type="text" name="pizza-price" placeholder="price" />
-                <h4>Toppings</h4>
-                <table>
-                    <tr>
-                        <th></th>
-                        <td>
-                            <input type="checkbox" name="ingredients[]" id="red-sauce" value="red-sauce">
-                            <label for="red-sauce">Red Sauce</label>
-                        </td>
-                        <td>
-                            <input type="checkbox" name="ingredients[]" id="green-peppers" value="green-peppers">
-                            <label for="green-peppers">Green Peppers</label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th></th>
-                        <td>
-                            <input type="checkbox" name="ingredients[]" id="mozarella" value="mozarella">
-                            <label for="mozarella">Mozarella</label>
-                        </td>
-                        <td>
-                            <input type="checkbox" name="ingredients[]" id="ham" value="ham">
-                            <label for="ham">Ham</label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th></th>
-                        <td>
-                            <input type="checkbox" name="ingredients[]" id="pepperoni" value="pepperoni">
-                            <label for="pepperoni">Pepperoni</label>
-                        </td>
-                        <td>
-                            <input type="checkbox" name="ingredients[]" id="mushrooms" value="mushrooms">
-                            <label for="mushrooms">Mushrooms</label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th></th>
-                        <td>
-                            <input type="checkbox" name="ingredients[]" id="pineapple" value="pineapple">
-                            <label for="pineapple">Pineapple</label>
-                        </td>
-                        <td>
-                            <input type="checkbox" name="ingredients[]" id="anchovies" value="anchovies">
-                            <label for="anchovies">Anchovies</label>
-                        </td>
-                    </tr>
-                </table>
-                <button type="submit" name='submit' value='submit'>Create</button>
-            </form>
+        <html>
+        <h1> <a href="index.php"> Original Pizza Place <a /> </h1>
+        <h3> Pie Editor </h3>
+        <form method="POST">
+            <input type="text" name="pizza-name" placeholder="Pizza Name" />
+            <input type="text" name="pizza-price" placeholder="price" />
+            <h4>Toppings</h4>
+            <table>
+                <tr>
+                    <th></th>
+                    <td>
+                        <input type="checkbox" name="ingredients[]" id="red-sauce" value="red-sauce">
+                        <label for="red-sauce">Red Sauce</label>
+                    </td>
+                    <td>
+                        <input type="checkbox" name="ingredients[]" id="green-peppers" value="green-peppers">
+                        <label for="green-peppers">Green Peppers</label>
+                    </td>
+                </tr>
+                <tr>
+                    <th></th>
+                    <td>
+                        <input type="checkbox" name="ingredients[]" id="mozarella" value="mozarella">
+                        <label for="mozarella">Mozarella</label>
+                    </td>
+                    <td>
+                        <input type="checkbox" name="ingredients[]" id="ham" value="ham">
+                        <label for="ham">Ham</label>
+                    </td>
+                </tr>
+                <tr>
+                    <th></th>
+                    <td>
+                        <input type="checkbox" name="ingredients[]" id="pepperoni" value="pepperoni">
+                        <label for="pepperoni">Pepperoni</label>
+                    </td>
+                    <td>
+                        <input type="checkbox" name="ingredients[]" id="mushrooms" value="mushrooms">
+                        <label for="mushrooms">Mushrooms</label>
+                    </td>
+                </tr>
+                <tr>
+                    <th></th>
+                    <td>
+                        <input type="checkbox" name="ingredients[]" id="pineapple" value="pineapple">
+                        <label for="pineapple">Pineapple</label>
+                    </td>
+                    <td>
+                        <input type="checkbox" name="ingredients[]" id="anchovies" value="anchovies">
+                        <label for="anchovies">Anchovies</label>
+                    </td>
+                </tr>
+            </table>
+            <button type="submit" name='submit' value='submit'>Create</button>
+        </form>
 
-            </html>
-        <?php
-        } else if (isset($_POST['submit'])) {
-            // print_r($_POST);        //array of all your stuff
+        </html>
+    <?php
+ 
+       if (isset($_POST['submit'])) {
+            
             if ($_POST['pizza-name'] == null || $_POST['pizza-price'] == null) {  //EDIT THIS TO TAKE USER BACK TO CUSTOMIZATION PAGE
                 echo ("Cannot enter pizza without a name AND price");
             } else {
@@ -207,9 +211,8 @@
                 $hash = md5($pizza_name);
                 $file = fopen($hash . ".txt", "w");
                 fwrite($file, $arr_serialized);
-
                 fclose($file);
-                detailView($arr);
+                echo("Successfully created pizza");
             }
         }
     }
@@ -231,13 +234,23 @@
             ?>
         </ul>
     <?php
+        $data['viewCounts']++;
+        
+        updatePizzaFile($data);
+    }
+
+    function updatePizzaFile($data){
+        $pizza_file = getPizzaFile($data['pizza-name']);    //get text file associated 
+        $file = fopen($pizza_file, 'w');
+        $arr_serialized = serialize($data);
+        fwrite($file, $arr_serialized);
+        fclose($file);
     }
 
     function confirmView($data)
     {
         $pizza_name = $data['pizza-name'];
         $pizzaHash = md5($pizza_name);
-
 
     ?>
         <h1> <a href="index.php"> Original Pizza Place <a /> </h1>
@@ -257,11 +270,10 @@
             } else {
                 echo ("failed to delete");
             }
-        } 
-      
+        }  
     }
-
     ?>
+
 </body>
 
 </html>
