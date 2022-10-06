@@ -51,7 +51,19 @@
     }
 
     function editController(){
-        editPizzaView();
+        if(empty($_GET['pizza-name'])){
+            $arr = [];
+            editPizzaView($arr);
+        }
+        else{
+            $pizza_file = getPizzaFile($_GET['pizza-name']);
+            echo($pizza_file);
+            $file = fopen($pizza_file, "r");
+            $unseralized_arr = unserialize(fgets($file));
+            fclose($file);
+            editPizzaView($unseralized_arr);
+        }
+   
     }
 
     function detailController()
@@ -120,7 +132,7 @@
                                     ?>
                                 </td>
 
-                                <td><button type='submit'> <a name='edit' value='edit' href="index.php?a=edit&pizza-name<?= $pizza_name ?>">✏️</a></button>
+                                <td><button type='submit' name = 'a' value='edit'> <a name='edit' value='edit' href="index.php?a=edit&pizza-name=<?=$pizza_name?>">✏️</a></button>
                                     <button type='submit'><a name='confirm' value='confirm' href="index.php?a=confirm&pizza-name=<?= $pizza_name ?>&pizza-price=<?= $pizza_price ?>">🗑️</button>
                                 </td>
                             </tr>
@@ -135,58 +147,101 @@
         // }
     }
 
-    function editPizzaView()
+    function editPizzaView($data)
     {
         ?>
         <html>
         <h1> <a href="index.php"> Original Pizza Place <a /> </h1>
         <h3> Pie Editor </h3>
         <form method="POST">
-            <input type="text" name="pizza-name" placeholder="Pizza Name" />
-            <input type="text" name="pizza-price" placeholder="price" />
+            <input type="text" name="pizza-name" placeholder="Pizza Name" value = <?php 
+                            if(!empty($data['pizza-name'])){
+                                echo($data['pizza-name']);
+                            }
+                       
+                ?> >
+            <input type="text" name="pizza-price" placeholder="price" value = <?php
+                            if(!empty($data['pizza-price'])){
+                                echo($data['pizza-price']);
+                            }
+                        ?>
+            >
             <h4>Toppings</h4>
             <table>
                 <tr>
                     <th></th>
                     <td>
-                        <input type="checkbox" name="ingredients[]" id="red-sauce" value="red-sauce">
+                        <input type="checkbox" name="ingredients[]" id="red-sauce" value="red-sauce" <?php
+                            if(!empty($data['ingredients']) && in_array('red-sauce', $data['ingredients'])){
+                                ?> checked <?php
+                            }
+                        ?>
+                        >
                         <label for="red-sauce">Red Sauce</label>
                     </td>
                     <td>
-                        <input type="checkbox" name="ingredients[]" id="green-peppers" value="green-peppers">
+                        <input type="checkbox" name="ingredients[]" id="green-peppers" value="green-peppers" <?php
+                            if(!empty($data['ingredients']) && in_array('green-peppers', $data['ingredients'])){
+                                ?> checked <?php
+                            }
+                        ?>>
                         <label for="green-peppers">Green Peppers</label>
                     </td>
                 </tr>
                 <tr>
                     <th></th>
                     <td>
-                        <input type="checkbox" name="ingredients[]" id="mozarella" value="mozarella">
+                        <input type="checkbox" name="ingredients[]" id="mozarella" value="mozarella" <?php
+                            if(!empty($data['ingredients']) && in_array('mozarella', $data['ingredients'])){
+                                ?> checked <?php
+                            }
+                        ?>>
                         <label for="mozarella">Mozarella</label>
                     </td>
                     <td>
-                        <input type="checkbox" name="ingredients[]" id="ham" value="ham">
+                        <input type="checkbox" name="ingredients[]" id="ham" value="ham" <?php
+                            if(!empty($data['ingredients']) && in_array('ham', $data['ingredients'])){
+                                ?> checked <?php
+                            }
+                        ?>>
                         <label for="ham">Ham</label>
                     </td>
                 </tr>
                 <tr>
                     <th></th>
                     <td>
-                        <input type="checkbox" name="ingredients[]" id="pepperoni" value="pepperoni">
+                        <input type="checkbox" name="ingredients[]" id="pepperoni" value="pepperoni" <?php
+                            if(!empty($data['ingredients']) && in_array('pepperoni', $data['ingredients'])){
+                                ?> checked <?php
+                            }
+                        ?>>
                         <label for="pepperoni">Pepperoni</label>
                     </td>
                     <td>
-                        <input type="checkbox" name="ingredients[]" id="mushrooms" value="mushrooms">
+                        <input type="checkbox" name="ingredients[]" id="mushrooms" value="mushrooms" <?php
+                            if(!empty($data['ingredients']) && in_array('mushrooms', $data['ingredients'])){
+                                ?> checked <?php
+                            }
+                        ?>>
                         <label for="mushrooms">Mushrooms</label>
                     </td>
                 </tr>
                 <tr>
                     <th></th>
                     <td>
-                        <input type="checkbox" name="ingredients[]" id="pineapple" value="pineapple">
+                        <input type="checkbox" name="ingredients[]" id="pineapple" value="pineapple" <?php
+                            if(!empty($data['ingredients']) && in_array('pineapple', $data['ingredients'])){
+                                ?> checked <?php
+                            }
+                        ?>>
                         <label for="pineapple">Pineapple</label>
                     </td>
                     <td>
-                        <input type="checkbox" name="ingredients[]" id="anchovies" value="anchovies">
+                        <input type="checkbox" name="ingredients[]" id="anchovies" value="anchovies" <?php
+                            if(!empty($data['ingredients']) && in_array('anchovies', $data['ingredients'])){
+                                ?> checked <?php
+                            }
+                        ?>>
                         <label for="anchovies">Anchovies</label>
                     </td>
                 </tr>
