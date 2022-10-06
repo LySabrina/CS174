@@ -10,29 +10,58 @@
 
 <body>
     <?php
-    $pizzaFile = fopen("pizza.txt", "a");
     
     mainController();
+    
+    /**
+     * Gets the text file associated with pizza name such that we can modify it 
+     */
+    function getPizzaFile($pizzaName){
+        $path = getcwd();
+        $pizza_files = glob($path."/*.txt");        //return an array of text files ==> find a way to exclude the readme.txt
+        foreach($pizza_files as $f){
+            $fileName = basename($f, ".txt");       //retyrbs a filename of the text file without absolute path
+            if(md5($pizzaName) == $fileName){
+                $pizzaTextFile = basename(($f)); 
+                return $pizzaTextFile;    
+            }            
+        }
+    }
+
+    function getAllPizzaFiles(){
+        $path = getcwd();
+        if(($pizza_files = glob($path."/*.txt")) != false){      //return an array of text files of their absolute path
+            $readMe = $path. "/readme.txt";                 
+            $key  = array_search($readMe, $pizza_files); 
+            if($key !== false){ 
+
+                unset($pizza_files[$key]);
+            }
+            return $pizza_files;
+        } 
+        else{
+            $arr = [];
+            return $arr;
+        } 
+        
+    }
+    
     function mainController(){
         $view = (isset($_REQUEST['a']) && in_array($_REQUEST['a'], ['edit', 'detail', 'confirm'])) ? $_REQUEST['a'] . "Controller" : 'menuView';
         $view();
         
     }
+
     function editController(){
 
     }
+
     function detailController(){
         $pizza_name = $_GET['pizza-name'];
-        $pizza_price = $_GET['pizza-price'];
-        
-        foreach(file('pizza.txt') as $line){
-            $arr = unserialize($line);
-        
-            if($arr['pizza-name']  == $pizza_name && $arr['pizza-price'] == $pizza_price){
-                detailView($arr);
-                
-            }
-        }        
+        $pizza_file = getPizzaFile($pizza_name); //get the pizza text file associated with the pizza name
+        $file = fopen($pizza_file, "r");
+        $arr = unserialize(fgets($file));       //get the unseralized array from the single line
+        detailView($arr);
     }
 
     function confirmController(){
@@ -52,6 +81,7 @@
         // }
     }
 
+    
     function getPizzaList(){
         if(file_exists("pizza.txt")){
             foreach(file("pizza.txt") as $line){
@@ -91,43 +121,46 @@
                         <td>Actions</td>
                     </tr>
                     <?php
-                          if(file_exists("pizza.txt")){
-                            $myFile = file_get_contents("pizza.txt");
-                            if(strcmp($myFile, "") == 0){
-                                echo("No current made pizza. Please make some");
+                            $arr = getAllPizzaFiles();
+                            if(!count($arr)){
+                                echo("Empty array");
                             }
                             else{
-                                foreach(file("pizza.txt") as $line){
-                                    $arr = unserialize($line);
+                                foreach($arr as $f){            //for each path file
+                                    $file = fopen($f, "r");      //open the file
+                                    $line = fgets($file);       //gets the seralized array
+                                    $arr = unserialize($line); 
                                     $pizza_name =$arr['pizza-name'];
                                     $pizza_price = $arr['pizza-price'];
                                     $ingredients = $arr['ingredients'];
+                                    $viewCounts = $arr['viewCounts']; // ==> not found in the array for some reason
                                     ?>
-                                        <tr>
-                                            <td> <a href ="index.php?a=detail&pizza-name=<?=$pizza_name?>&pizza-price=<?=$pizza_price?>"> <?=$pizza_name ?> </a>
-                                                </td>
-                                            <td> $<?=$pizza_price ?> </td>
-                                            <td>💗💗💗</td>
-                                            <td><button type='submit'> <a name='edit' value ='edit' href="index.php?a=edit&pizza-name<?=$pizza_name?>">✏️</a></button>
-                                            <button type='submit'><a name='confirm' value='confirm' href ="index.php?a=confirm&pizza-name=<?=$pizza_name?>&pizza-price=<?=$pizza_price?>">🗑️</button>
+                                    <tr>
+                                        <td> <a href ="index.php?a=detail&pizza-name=<?=$pizza_name?>&pizza-price=<?=$pizza_price?>"> <?=$pizza_name ?> </a>
                                             </td>
-                                        </tr>
-                                    <?php
-                                  
-                                    // $arr = unserialize($line);
-                                    // $pizza_name =$arr['pizza-name'];
-                                    // $pizza_price = $arr['pizza-price'];
-                                    // $ingredients = $arr['ingredients'];
-                                    // $str = "<tr> <td>" . $pizza_name . "</td>" . "<td>$" . $pizza_price . "</td>"; 
-                                    // $str .= " <td>💗💗💗</td> <td><button>✏️</button><button>🗑️</button></td>";
-                                    // echo $str;
-                                }
-                                if(isset($_REQUEST['confirm'])){
-                                    echo("howdy");
-                                }
+                                        <td> $<?=$pizza_price ?> </td>
+                                        <td>
+                                        <?php
+                                        //    since we are getting data from the text file, it stays as 0 even though we visited the page because it is not beign written to file
+                                            $str = "";
+                                            for($i = 0; $i < $viewCounts && $i < 5; $i++){
+                                                    //fix for log5
+                                                    $str .= "💗" ;
+                                            }
+                                            echo($str);
+                                        ?>
+                                        </td>
+                                        
+                                        <td><button type='submit'> <a name='edit' value ='edit' href="index.php?a=edit&pizza-name<?=$pizza_name?>">✏️</a></button>
+                                        <button type='submit'><a name='confirm' value='confirm' href ="index.php?a=confirm&pizza-name=<?=$pizza_name?>&pizza-price=<?=$pizza_price?>">🗑️</button>
+                                        </td>
+                                    </tr>
+                                <?php
+                                } 
                             }
-                       
-                        }
+
+                   
+
                     ?>
                 </table>
     
@@ -202,7 +235,6 @@
         }
         else if(isset($_POST['submit'])){
             // print_r($_POST);        //array of all your stuff
-            print("\n");
             if($_POST['pizza-name'] == null || $_POST['pizza-price'] == null){  //EDIT THIS TO TAKE USER BACK TO CUSTOMIZATION PAGE
                 echo("Cannot enter pizza without a name AND price");
             }
@@ -210,14 +242,15 @@
                 $pizza_name = $_POST['pizza-name'];
                 $pizza_price = $_POST['pizza-price'];       
                 $ingredients = $_POST['ingredients'];        
+                $arr = ['pizza-name' => $pizza_name, 'pizza-price' => $pizza_price, 'ingredients' => $ingredients, "viewCounts" => 0];
                 
-                $arr = ['pizza-name' => $pizza_name, 'pizza-price' => $pizza_price, 'ingredients' => $ingredients];
-
                 $arr_serialized = serialize($arr);
-                $file = fopen("pizza.txt", "a");
-                fwrite($file, $arr_serialized . "\n");
+                $hash = md5($pizza_name);
+                $file = fopen($hash . ".txt", "w");
+                fwrite($file, $arr_serialized);
+
                 fclose($file);
-                detailView($_POST);
+                detailView($arr);
             }   
         }
     }
@@ -239,6 +272,19 @@
                 ?>        
             </ul>
         <?php
+        
+        // foreach(file("pizza.txt") as $line){
+        //     $arr = unserialize($line);
+        //     if($arr == $data){
+        //         $arr['viewCounts']++;
+        //         $arr_serialized = serialize($arr);
+        //         $str = str_replace($line, $arr_serialized, $line);
+        //         fopen("pizza.txt", "a");
+                
+
+        //         // file_put_contents("pizza.txt", $str);                   //replcaes the whoel file
+        //     }
+        // }
     }
 
     function confirmView($data){
