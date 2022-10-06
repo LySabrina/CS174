@@ -10,7 +10,7 @@
 
 <body>
     <?php
-    
+  
     mainController();
     
     /**
@@ -66,41 +66,9 @@
 
     function confirmController(){
         $pizza_name = $_GET['pizza-name'];
-        $pizza_price = $_GET['pizza-price'];
-
-        echo("piiza: " . $pizza_name . "price: " . $pizza_price);
+        echo("piiza: " . $pizza_name);
         confirmView($_GET);
-        // $file = file('pizza.txt');
         
-        // foreach($file as $line){
-        //     $arr = unserialize($line);
-    
-        //     if(strcmp($arr['pizza-name'], $pizza_name) == 0 && strcmp($arr['pizza-price'], $pizza_price) == 0){
-            
-        //     }
-        // }
-    }
-
-    
-    function getPizzaList(){
-        if(file_exists("pizza.txt")){
-            foreach(file("pizza.txt") as $line){
-                $arr = unserialize($line);
-                $pizza_name =$arr['pizza-name'];
-                $pizza_price = $arr['pizza-price'];
-                $ingredients = $arr['ingredients'];
-
-                print("PIZZA NAME: " . $pizza_name . "\n");
-                print("PIZZA PRICE: " . $pizza_price . "\n");
-                print("INGREDIENTS: ");
-                foreach($ingredients as $i){
-                    print($i . " ");
-                }
-            }
-        }
-        else{
-            print('file no exist');
-        }
     }
 
     function menuView()
@@ -158,9 +126,6 @@
                                 <?php
                                 } 
                             }
-
-                   
-
                     ?>
                 </table>
     
@@ -255,7 +220,6 @@
         }
     }
 
-
     function detailView($data){
         ?>
             <h1> <a href="index.php"> Original Pizza Place <a /> </h1>
@@ -272,33 +236,34 @@
                 ?>        
             </ul>
         <?php
-        
-        // foreach(file("pizza.txt") as $line){
-        //     $arr = unserialize($line);
-        //     if($arr == $data){
-        //         $arr['viewCounts']++;
-        //         $arr_serialized = serialize($arr);
-        //         $str = str_replace($line, $arr_serialized, $line);
-        //         fopen("pizza.txt", "a");
-                
-
-        //         // file_put_contents("pizza.txt", $str);                   //replcaes the whoel file
-        //     }
-        // }
     }
 
     function confirmView($data){
+        $pizza_name = $data['pizza-name'];
+        $pizzaHash = md5($pizza_name);
+
+        if(isset($_GET['delete'])){
+            if(unlink($pizza_name . ".txt")){
+                echo("Succesfully Deleted");
+            }
+            else{
+                echo("failed to delete");
+            }
+            
+        }
+        else{
+            echo('not set');
+        }
+        
         ?>
             <h1> <a href="index.php"> Original Pizza Place <a /> </h1>
             <p>Are you sure you want to delete the bookmark: <?=$data['pizza-name'] ?> </p>
-
-            <button type ='submit' name='confirm' value='true'> <a href='index.php?a=menu'> Confirm </button> 
-            <button type ='submit' name='cancel' value = 'false'> <a href="index.php"> Cancel  </a></button>
+    
+            <button type ='submit' name='delete' value='delete'> <a href='index.php?delete=delete'> Confirm </button> 
+            <button type ='submit' name='cancel' value = 'cancel'> <a href="index.php"> Cancel  </a></button>
         <?php
     }
-        if(isset($_GET['confirm'])){
-            menuView();
-        }
+     
 
     ?>
 </body>
