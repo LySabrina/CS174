@@ -57,7 +57,6 @@
         }
         else{
             $pizza_file = getPizzaFile($_GET['pizza-name']);
-            echo($pizza_file);
             $file = fopen($pizza_file, "r");
             $unseralized_arr = unserialize(fgets($file));
             fclose($file);
@@ -78,16 +77,11 @@
     function confirmController()
     {
         $pizza_name = $_GET['pizza-name'];
-        echo ("piiza: " . $pizza_name);
         confirmView($_GET);
     }
 
     function menuView()
     {
-        // if (isset($_GET['create'])) {
-        //     editPizzaView();
-        // }
-        //  else {
     ?>
             <h1> <a href="index.php"> Original Pizza Place <a /> </h1>
             <h3> Menu </h3>
@@ -251,23 +245,42 @@
 
         </html>
     <?php
- 
+    
        if (isset($_POST['submit'])) {
-            
-            if ($_POST['pizza-name'] == null || $_POST['pizza-price'] == null) {  //EDIT THIS TO TAKE USER BACK TO CUSTOMIZATION PAGE
-                echo ("Cannot enter pizza without a name AND price");
-            } else {
-                $pizza_name = $_POST['pizza-name'];
-                $pizza_price = $_POST['pizza-price'];
-                $ingredients = $_POST['ingredients'];
-                $arr = ['pizza-name' => $pizza_name, 'pizza-price' => $pizza_price, 'ingredients' => $ingredients, "viewCounts" => 0];
-
-                $arr_serialized = serialize($arr);
-                $hash = md5($pizza_name);
-                $file = fopen($hash . ".txt", "w");
-                fwrite($file, $arr_serialized);
-                fclose($file);
-                echo("Successfully created pizza");
+            if(!empty($data)){
+                if (empty($_POST['ingredients']) || $_POST['pizza-name'] == null || $_POST['pizza-price'] == null ) {  //EDIT THIS TO TAKE USER BACK TO CUSTOMIZATION PAGE
+                    echo ("Cannot enter pizza without a name AND price AND needs at least one ingredients");
+                }
+                else{
+                    $updated = $_POST['submit'];
+                    $pizza_name = $_POST['pizza-name'];
+                    $pizza_price = $_POST['pizza-price'];
+                    $ingredients = $_POST['ingredients'];
+                    $viewCounts = $data['viewCounts'];
+                    $arr = ['pizza-name' => $pizza_name, 'pizza-price' => $pizza_price, 'ingredients' => $ingredients, "viewCounts" => $viewCounts];
+                    
+                    updatePizzaFile($arr);
+                    echo("Updated");
+                }
+                
+            }
+            else{
+                if (empty($_POST['ingredients']) || $_POST['pizza-name'] == null || $_POST['pizza-price'] == null) {  //EDIT THIS TO TAKE USER BACK TO CUSTOMIZATION PAGE
+                    echo ("Cannot enter pizza without a name AND price AND needs at least one ingredients");
+                }
+                else {
+                    $pizza_name = $_POST['pizza-name'];
+                    $pizza_price = $_POST['pizza-price'];
+                    $ingredients = $_POST['ingredients'];
+                    $arr = ['pizza-name' => $pizza_name, 'pizza-price' => $pizza_price, 'ingredients' => $ingredients, "viewCounts" => 0];
+    
+                    $arr_serialized = serialize($arr);
+                    $hash = md5($pizza_name);
+                    $file = fopen($hash . ".txt", "w");
+                    fwrite($file, $arr_serialized);
+                    fclose($file);
+                    echo("Successfully created pizza");
+                }
             }
         }
     }
@@ -290,12 +303,12 @@
         </ul>
     <?php
         $data['viewCounts']++;
-        
         updatePizzaFile($data);
     }
 
     function updatePizzaFile($data){
         $pizza_file = getPizzaFile($data['pizza-name']);    //get text file associated 
+        // $pizza_file = getPizzaFile($previousName);  
         $file = fopen($pizza_file, 'w');
         $arr_serialized = serialize($data);
         fwrite($file, $arr_serialized);
@@ -313,12 +326,13 @@
         <form method='POST'>
             <button type='submit' name='delete' value='delete'> Confirm </button>
         </form>
-
-        <button type='submit' name='cancel' value='cancel'> <a href="index.php"> Cancel </a></button>
+        <form method = "GET">
+            <button type ='submit' name = 'a' value = 'menu'> Cancel </button>
+        </form>
+        <!-- <button type='submit' name='cancel' value='cancel'> <a href="index.php"> Cancel </a></button> -->
     <?php
 
         if (isset($_POST['delete'])) {
-            echo ("confirm");
             if 
             (unlink($pizzaHash . ".txt")) {
                 echo ("Succesfully Deleted");
