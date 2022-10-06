@@ -12,21 +12,27 @@
     mainController();
     
     /**
-     * Gets the text file associated with pizza name such that we can modify it 
+     * Gets the text file associated with pizza name 
+     * @return string, the text file asscoiated with $pizzname
+     * @param string, the name of the pizza to find the text file for
      */
     function getPizzaFile($pizzaName)
     {
-        $path = getcwd();
-        $pizza_files = glob($path . "/*.txt");        //return an array of text files ==> find a way to exclude the readme.txt
+        $path = getcwd();                             //gets the current directory
+        $pizza_files = glob($path . "/*.txt");        //return an array of files ending with .txt
         foreach ($pizza_files as $f) {
-            $fileName = basename($f, ".txt");       //retyrbs a filename of the text file without absolute path
+            $fileName = basename($f, ".txt");       //gets the filename without the txt extension part
             if (md5($pizzaName) == $fileName) {
-                $pizzaTextFile = basename(($f));
+                $pizzaTextFile = basename(($f));    //gets the filename with txt extension part
                 return $pizzaTextFile;
             }
         }
     }
 
+    /**
+     * Gets all the pizza text files in this current directory
+     * @return array, the array of all the pizza text file in this directory
+     */
     function getAllPizzaFiles()
     {
         $path = getcwd();
@@ -261,6 +267,7 @@
                     
                     updatePizzaFile($arr);
                     echo("Updated");
+                    
                 }
                 
             }
