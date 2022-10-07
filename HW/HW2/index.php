@@ -8,7 +8,6 @@
 
 <body>
     <?php
-
     mainController();
     
     /**
@@ -56,7 +55,8 @@
      */
     function mainController()
     {
-        //if we get a request (either post or get with name ='a'), then if the value of 'a' is either edit, detail, or confirm then we call their respective controller. else call menuView() function
+        //if we get a request (either post or get with name ='a'), then if the value of 'a' is either edit, detail, 
+        //or confirm then we call their respective controller. else call menuView() function
         $view = (isset($_REQUEST['a']) && in_array($_REQUEST['a'], ['edit', 'detail', 'confirm'])) ? $_REQUEST['a'] . "Controller" : 'menuView';
         $view();
     }
@@ -65,7 +65,8 @@
      * Handles the edit view controller 
      * Gets the pizza serialized data and pass it to the editView
      */
-    function editController(){
+    function editController()
+    {
          //index.php?a=edit&pizza-name=<SOME_NAME> is a GET request  which is called to activate the editController
         if(empty($_GET['pizza-name'])){                     //if the piza-name is empty then we just call the editpizzaView with an emtpy array         
             $arr = [];
@@ -280,35 +281,42 @@
                     echo ("Cannot enter pizza without a name AND price AND needs at least one ingredients");
                 }
                 else{
-                    $updated = $_POST['submit'];
-                    $pizza_name = $_POST['pizza-name'];
-                    $pizza_price = $_POST['pizza-price'];
-                    $ingredients = $_POST['ingredients'];
-                    $viewCounts = $data['viewCounts'];
-                    $arr = ['pizza-name' => $pizza_name, 'pizza-price' => $pizza_price, 'ingredients' => $ingredients, "viewCounts" => $viewCounts];
-                    
-                    updatePizzaFile($arr);
-                    echo("Updated");
-                    
+                    if (!is_numeric($_POST['pizza-price'])) {
+                        echo ("Cannot enter pizza with a non-digit price");
+                    }
+                    else {
+                        $updated = $_POST['submit'];
+                        $pizza_name = $_POST['pizza-name'];
+                        $pizza_price = $_POST['pizza-price'];
+                        $ingredients = $_POST['ingredients'];
+                        $viewCounts = $data['viewCounts'];
+                        $arr = ['pizza-name' => $pizza_name, 'pizza-price' => $pizza_price, 'ingredients' => $ingredients, "viewCounts" => $viewCounts];                    
+                        updatePizzaFile($arr, $data);
+                        echo("Updated");
+                    }
                 }
-                
             }
             else{
                 if (empty($_POST['ingredients']) || $_POST['pizza-name'] == null || $_POST['pizza-price'] == null) {  //EDIT THIS TO TAKE USER BACK TO CUSTOMIZATION PAGE
                     echo ("Cannot enter pizza without a name AND price AND needs at least one ingredients");
                 }
                 else {
-                    $pizza_name = $_POST['pizza-name'];
-                    $pizza_price = $_POST['pizza-price'];
-                    $ingredients = $_POST['ingredients'];
-                    $arr = ['pizza-name' => $pizza_name, 'pizza-price' => $pizza_price, 'ingredients' => $ingredients, "viewCounts" => 0];
-    
-                    $arr_serialized = serialize($arr);
-                    $hash = md5($pizza_name);
-                    $file = fopen($hash . ".txt", "w");
-                    fwrite($file, $arr_serialized);
-                    fclose($file);
-                    echo("Successfully created pizza");
+                    if (!is_numeric($_POST['pizza-price'])) {
+                        echo ("Cannot enter pizza with a non-digit price");
+                    }
+                    else {
+                        $pizza_name = $_POST['pizza-name'];
+                        $pizza_price = $_POST['pizza-price'];
+                        $ingredients = $_POST['ingredients'];
+                        $arr = ['pizza-name' => $pizza_name, 'pizza-price' => $pizza_price, 'ingredients' => $ingredients, "viewCounts" => 0];
+        
+                        $arr_serialized = serialize($arr);
+                        $hash = md5($pizza_name);
+                        $file = fopen($hash . ".txt", "w");
+                        fwrite($file, $arr_serialized);
+                        fclose($file);
+                        echo("Successfully created pizza");
+                    }            
                 }
             }
         }
@@ -335,7 +343,7 @@
         </ul>
     <?php
         $data['viewCounts']++;
-        updatePizzaFile($data);
+        updatePizzaFile($data, $data);
     }
 
 
@@ -366,16 +374,22 @@
             }
         }  
     }
+
     /**
      * Updates the pizza file with new information
      * @param array, the 
-     */
-    function updatePizzaFile($data){
-        $pizza_file = getPizzaFile($data['pizza-name']);    //get text file associated 
+     */   
+    function updatePizzaFile($new_data, $old_data)
+    {
+        $pizza_file = getPizzaFile($old_data['pizza-name']);    //get text file associated 
         // $pizza_file = getPizzaFile($previousName);  
         $file = fopen($pizza_file, 'w');
-        $arr_serialized = serialize($data);
+        $arr_serialized = serialize($new_data);
         fwrite($file, $arr_serialized);
+        if ($old_data['pizza-name'] != $new_data['pizza-name']) {   //rename the file if the name of the pizza is changed
+            $new_file_hash = md5($new_data['pizza-name']);
+            rename($pizza_file, $new_file_hash . ".txt");
+        }
         fclose($file);
     }
     ?>
