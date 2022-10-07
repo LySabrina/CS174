@@ -355,6 +355,9 @@
         </ul>
         <div style="float:left;width:1.4in;">
             <div style="border-radius:0.6in; border:2px solid black; width:1.2in; height:1.2in">
+                <!--
+                red sauce
+                 -->
                 <div style="background-color:red; border-radius:0.5in; width:1in; height:1in" id = "topping"
                     <?php 
                         if(!empty($data['ingredients']) && !in_array('red-sauce', $data['ingredients'])){
@@ -362,49 +365,140 @@
                         }
                     ?>>
                 </div>
-                <div style="background-color:green; left: 85px; top:370px; border-radius:0.5in; width:0.1in; height:0.1in" id = "topping"
+                <!--
+                green peppers
+                 -->
+                <div style="background-color:green; left:5%; top:37%; border-radius:10%; width:1.5%; height:0.5%" id = "topping"
                     <?php 
                         if(!empty($data['ingredients']) && !in_array('green-peppers', $data['ingredients'])){
                             ?> class="hidden-div"; <?php
                         }
                     ?>>
                 </div>
-                <div style="background-color:yellow; width:0.1in; height:0.5in" id = "topping"
+                <div style="background-color:green; left:2%; top:38%; border-radius:10%; width:1.5%; height:0.5%" id = "topping"
+                    <?php 
+                        if(!empty($data['ingredients']) && !in_array('green-peppers', $data['ingredients'])){
+                            ?> class="hidden-div"; <?php
+                        }
+                    ?>>
+                </div>
+                <div style="background-color:green; left:3%; top:40%; border-radius:10%; width:1.5%; height:0.5%" id = "topping"
+                    <?php 
+                        if(!empty($data['ingredients']) && !in_array('green-peppers', $data['ingredients'])){
+                            ?> class="hidden-div"; <?php
+                        }
+                    ?>>
+                </div>
+                <!--
+                mozarella
+                 -->
+                <div style="background-color:yellow; left:2%; top:33%; border-radius:10%; width:1.5%; height:0.5%" id = "topping"
                     <?php 
                         if(!empty($data['ingredients']) && !in_array('mozarella', $data['ingredients'])){
                             ?> class="hidden-div"; <?php
                         }
                     ?>>
                 </div>
-                <div style="background-color:pink; left:30px; width:0.5in; height:0.8in" id = "topping"
+                <div style="background-color:yellow; left:3%; top:36%; border-radius:10%; width:1.5%; height:0.5%" id = "topping"
+                    <?php 
+                        if(!empty($data['ingredients']) && !in_array('mozarella', $data['ingredients'])){
+                            ?> class="hidden-div"; <?php
+                        }
+                    ?>>
+                </div>
+                <div style="background-color:yellow; left:4%; top:34%; border-radius:10%; width:1.5%; height:0.5%" id = "topping"
+                    <?php 
+                        if(!empty($data['ingredients']) && !in_array('mozarella', $data['ingredients'])){
+                            ?> class="hidden-div"; <?php
+                        }
+                    ?>>
+                </div>
+                <div style="background-color:yellow; left:3%; top:37%; border-radius:10%; width:1.5%; height:0.5%" id = "topping"
+                    <?php 
+                        if(!empty($data['ingredients']) && !in_array('mozarella', $data['ingredients'])){
+                            ?> class="hidden-div"; <?php
+                        }
+                    ?>>
+                </div>
+                <div style="background-color:yellow; left:4%; top:39%; border-radius:10%; width:1.5%; height:0.5%" id = "topping"
+                    <?php 
+                        if(!empty($data['ingredients']) && !in_array('mozarella', $data['ingredients'])){
+                            ?> class="hidden-div"; <?php
+                        }
+                    ?>>
+                </div>
+                <!--
+                ham
+                 -->
+                <div style="background-color:pink; left:4%; top:39%; border-radius:50%; width:2%; height:2%" id = "topping"
                     <?php 
                         if(!empty($data['ingredients']) && !in_array('ham', $data['ingredients'])){
                             ?> class="hidden-div"; <?php
                         }
                     ?>>
                 </div>
-                <div style="background-color:pink; top:370px; border-radius:0.5in; width:0.3in; height:0.3in" id = "topping"
+                <div style="background-color:pink; left:2%; top:39%; border-radius:50%; width:2%; height:2%" id = "topping"
+                    <?php 
+                        if(!empty($data['ingredients']) && !in_array('ham', $data['ingredients'])){
+                            ?> class="hidden-div"; <?php
+                        }
+                    ?>>
+                </div>
+                <!--
+                pepperoni
+                 -->
+                <div style="background-color:maroon; left:3%; top:38%; border-radius:50%; width:3%; height:2%" id = "topping"
                     <?php 
                         if(!empty($data['ingredients']) && !in_array('pepperoni', $data['ingredients'])){
                             ?> class="hidden-div"; <?php
                         }
                     ?>>
                 </div>
-                <div style="background-color:brown; border-radius:0.1in; width:0.3in; height:0.3in" id = "topping"
+                <div style="background-color:maroon; left:4%; top:36%; border-radius:50%; width:3%; height:2%" id = "topping"
+                    <?php 
+                        if(!empty($data['ingredients']) && !in_array('pepperoni', $data['ingredients'])){
+                            ?> class="hidden-div"; <?php
+                        }
+                    ?>>
+                </div>
+                <div style="background-color:maroon; left:2%; top:39%; border-radius:50%; width:3%; height:2%" id = "topping"
+                    <?php 
+                        if(!empty($data['ingredients']) && !in_array('pepperoni', $data['ingredients'])){
+                            ?> class="hidden-div"; <?php
+                        }
+                    ?>>
+                </div>
+                <!--
+                mushroom
+                 -->
+                <div style="background-color:brown;left:3%; top:35%; border-radius:50%; width:1%; height:1%" id = "topping"
                     <?php 
                         if(!empty($data['ingredients']) && !in_array('mushrooms', $data['ingredients'])){
                             ?> class="hidden-div"; <?php
                         }
                     ?>>
                 </div>
-                <div style="background-color:yellow; border-radius:0.5in; width:0.2in; height:0.2in" id = "topping"
+                <div style="background-color:brown; left:2%; top:37%; border-radius:50%; width:1%; height:1%" id = "topping"
+                    <?php 
+                        if(!empty($data['ingredients']) && !in_array('mushrooms', $data['ingredients'])){
+                            ?> class="hidden-div"; <?php
+                        }
+                    ?>>
+                </div>
+                <!--
+                pineapple
+                 -->
+                <div style="background-color:yellow; left:4%; top:38%; border-radius:20%; width:1%; height:1%" id = "topping"
                     <?php 
                         if(!empty($data['ingredients']) && !in_array('pineapple', $data['ingredients'])){
                             ?> class="hidden-div"; <?php
                         }
                     ?>>
                 </div>
-                <div style="background-color:green; left:40px; width:0.3in; height:0.3in" id = "topping"
+                <!--
+                anchovies
+                 -->
+                <div style="background-color:olive; left:3%; top:34%; border-radius:10%; width:1%; height:1%" id = "topping"
                     <?php 
                         if(!empty($data['ingredients']) && !in_array('anchovies', $data['ingredients'])){
                             ?> class="hidden-div"; <?php
