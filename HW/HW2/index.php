@@ -21,8 +21,8 @@
         $path = getcwd();                             //gets the current directory
         $pizza_files = glob($path . "/*.txt");        //return an array of files ending with .txt
         foreach ($pizza_files as $f) {
-            $fileName = basename($f, ".txt");       //gets the filename without the txt extension part
-            if (md5($pizzaName) == $fileName) {
+            $fileName = basename($f, ".txt");       //gets the filename (string) without the txt extension part
+            if (md5($pizzaName) == $fileName) {     //if the md5 of the param pizzaName equals to the filename then we found the pizza file we want
                 $pizzaTextFile = basename(($f));    //gets the filename with txt extension part
                 return $pizzaTextFile;
             }
@@ -35,33 +35,43 @@
      */
     function getAllPizzaFiles()
     {
+        //want to get all pizza files .txt files EXCEPT the readme.txt 
         $path = getcwd();
-        if (($pizza_files = glob($path . "/*.txt")) != false) {      //return an array of text files of their absolute path
-            $readMe = $path . "/readme.txt";
-            $key  = array_search($readMe, $pizza_files);
+        if (($pizza_files = glob($path . "/*.txt")) != false) {      // pizzaFiles = array of text files .txt (their absolute path) in current directory
+            $readMe = $path . "/readme.txt";                        //readMe.txt file path 
+            $key  = array_search($readMe, $pizza_files);            //if we found that readMe.txt is inside the $pizza_file array then we remove it
             if ($key !== false) {
-
                 unset($pizza_files[$key]);
             }
             return $pizza_files;
-        } else {
+        }
+         else {                                                    //if there were no readme.txt file, then we just return an empty array (possible if the grader remove our readme.txt ?)
             $arr = [];
             return $arr;
         }
     }
 
+    /**
+     * Main controller for handling requests to go to edit, detail, confirm or menu views
+     */
     function mainController()
     {
+        //if we get a request (either post or get with name ='a'), then if the value of 'a' is either edit, detail, or confirm then we call their respective controller. else call menuView() function
         $view = (isset($_REQUEST['a']) && in_array($_REQUEST['a'], ['edit', 'detail', 'confirm'])) ? $_REQUEST['a'] . "Controller" : 'menuView';
         $view();
     }
 
+    /**
+     * Handles the edit view controller 
+     * Gets the pizza serialized data and pass it to the editView
+     */
     function editController(){
-        if(empty($_GET['pizza-name'])){
+         //index.php?a=edit&pizza-name=<SOME_NAME> is a GET request  which is called to activate the editController
+        if(empty($_GET['pizza-name'])){                     //if the piza-name is empty then we just call the editpizzaView with an emtpy array         
             $arr = [];
             editPizzaView($arr);
         }
-        else{
+        else{                                               //else we get the array contents of the pizza-file then call editpizaview()
             $pizza_file = getPizzaFile($_GET['pizza-name']);
             $file = fopen($pizza_file, "r");
             $unseralized_arr = unserialize(fgets($file));
@@ -71,6 +81,10 @@
    
     }
 
+    /**
+     * Handles the detail view 
+     * Gets the data for the get request pizza name then pass it to the detailView
+     */
     function detailController()
     {
         $pizza_name = $_GET['pizza-name'];
@@ -80,12 +94,19 @@
         detailView($arr);
     }
 
+    /**
+     * Handles the confirm view
+     * Gets the name of the pizza in get request and pass it to the confirm view
+     */
     function confirmController()
     {
         $pizza_name = $_GET['pizza-name'];
         confirmView($_GET);
     }
 
+    /**
+     * Menu view or landing page of the pizza. 
+     */
     function menuView()
     {
     ?>
@@ -122,11 +143,9 @@
                                     $str = "";
                                     
                                     $numHearts = log($viewCounts, 5);   
-                                    //each heart has a string length of 4??
+                                    //each heart has a string length of 4?? so i guess the strlen($str) must be less than 20 since 5 * 4 = 20 and we are only allowed 5 hearts
                                     for ($i = 0; $i < $numHearts && strlen($str) < 20 ; $i++) {
-                               
                                         $str .= "💗";
-                                    
                                     }
                                     echo($str);
                                     ?>
@@ -147,6 +166,9 @@
         // }
     }
 
+    /**
+     * Edit view of the pizza
+     */
     function editPizzaView($data)
     {
         ?>
@@ -254,7 +276,7 @@
     
        if (isset($_POST['submit'])) {
             if(!empty($data)){
-                if (empty($_POST['ingredients']) || $_POST['pizza-name'] == null || $_POST['pizza-price'] == null ) {  //EDIT THIS TO TAKE USER BACK TO CUSTOMIZATION PAGE
+                if (empty($_POST['ingredients']) || $_POST['pizza-name'] == null || $_POST['pizza-price'] == null ) {  
                     echo ("Cannot enter pizza without a name AND price AND needs at least one ingredients");
                 }
                 else{
@@ -292,6 +314,9 @@
         }
     }
 
+    /**
+     * Detail view of the pizza
+     */
     function detailView($data)
     {
         ?>
@@ -313,14 +338,7 @@
         updatePizzaFile($data);
     }
 
-    function updatePizzaFile($data){
-        $pizza_file = getPizzaFile($data['pizza-name']);    //get text file associated 
-        // $pizza_file = getPizzaFile($previousName);  
-        $file = fopen($pizza_file, 'w');
-        $arr_serialized = serialize($data);
-        fwrite($file, $arr_serialized);
-        fclose($file);
-    }
+
 
     function confirmView($data)
     {
@@ -347,6 +365,18 @@
                 echo ("failed to delete");
             }
         }  
+    }
+    /**
+     * Updates the pizza file with new information
+     * @param array, the 
+     */
+    function updatePizzaFile($data){
+        $pizza_file = getPizzaFile($data['pizza-name']);    //get text file associated 
+        // $pizza_file = getPizzaFile($previousName);  
+        $file = fopen($pizza_file, 'w');
+        $arr_serialized = serialize($data);
+        fwrite($file, $arr_serialized);
+        fclose($file);
     }
     ?>
 
