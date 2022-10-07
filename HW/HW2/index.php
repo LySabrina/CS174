@@ -4,6 +4,18 @@
 <head>
     <meta charset="UTF-8">
     <title>CS174 - Assignment #2</title>
+    <style>
+        .hidden-div
+        {
+            display: none;
+        }
+        #topping {
+            position: absolute;
+            margin:.08in;
+            border:2px solid black; 
+        }
+
+    </style>
 </head>
 
 <body>
@@ -341,6 +353,66 @@
             }
             ?>
         </ul>
+        <div style="float:left;width:1.4in;">
+            <div style="border-radius:0.6in; border:2px solid black; width:1.2in; height:1.2in">
+                <div style="background-color:red; border-radius:0.5in; width:1in; height:1in" id = "topping"
+                    <?php 
+                        if(!empty($data['ingredients']) && !in_array('red-sauce', $data['ingredients'])){
+                            ?> class="hidden-div"; <?php
+                        }
+                    ?>>
+                </div>
+                <div style="background-color:green; left: 85px; top:370px; border-radius:0.5in; width:0.1in; height:0.1in" id = "topping"
+                    <?php 
+                        if(!empty($data['ingredients']) && !in_array('green-peppers', $data['ingredients'])){
+                            ?> class="hidden-div"; <?php
+                        }
+                    ?>>
+                </div>
+                <div style="background-color:yellow; width:0.1in; height:0.5in" id = "topping"
+                    <?php 
+                        if(!empty($data['ingredients']) && !in_array('mozarella', $data['ingredients'])){
+                            ?> class="hidden-div"; <?php
+                        }
+                    ?>>
+                </div>
+                <div style="background-color:pink; left:30px; width:0.5in; height:0.8in" id = "topping"
+                    <?php 
+                        if(!empty($data['ingredients']) && !in_array('ham', $data['ingredients'])){
+                            ?> class="hidden-div"; <?php
+                        }
+                    ?>>
+                </div>
+                <div style="background-color:pink; top:370px; border-radius:0.5in; width:0.3in; height:0.3in" id = "topping"
+                    <?php 
+                        if(!empty($data['ingredients']) && !in_array('pepperoni', $data['ingredients'])){
+                            ?> class="hidden-div"; <?php
+                        }
+                    ?>>
+                </div>
+                <div style="background-color:brown; border-radius:0.1in; width:0.3in; height:0.3in" id = "topping"
+                    <?php 
+                        if(!empty($data['ingredients']) && !in_array('mushrooms', $data['ingredients'])){
+                            ?> class="hidden-div"; <?php
+                        }
+                    ?>>
+                </div>
+                <div style="background-color:yellow; border-radius:0.5in; width:0.2in; height:0.2in" id = "topping"
+                    <?php 
+                        if(!empty($data['ingredients']) && !in_array('pineapple', $data['ingredients'])){
+                            ?> class="hidden-div"; <?php
+                        }
+                    ?>>
+                </div>
+                <div style="background-color:green; left:40px; width:0.3in; height:0.3in" id = "topping"
+                    <?php 
+                        if(!empty($data['ingredients']) && !in_array('anchovies', $data['ingredients'])){
+                            ?> class="hidden-div"; <?php
+                        }
+                    ?>>
+                </div>
+            </div>
+        </div>
     <?php
         $data['viewCounts']++;
         updatePizzaFile($data, $data);
@@ -376,6 +448,9 @@
     }
 
     /**
+     * 
+     * 
+     * 
      * Updates the pizza file with new information
      * @param array, the 
      */   
