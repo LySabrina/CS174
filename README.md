@@ -1,2 +1,2 @@
 # CS174
-My work during the class
+Assignments done during Fall 2022 semster with my group
