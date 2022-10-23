@@ -1,10 +1,10 @@
 <?php
 namespace group\hw3\elements;
 
-class Element{
-    private $model;
+class Element {
+    private $element;
 
-    function __construct(){
+    function __construct() {
         
     }
 }
