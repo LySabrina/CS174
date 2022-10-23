@@ -1,5 +1,5 @@
 <?php
-namespace group\hw3;
+namespace group\hw3\controllers;
 
 class Controller{
     private $model;
