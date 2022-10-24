@@ -18,9 +18,9 @@
 
 
     $controller = new Controller();
-    $controller.mainController();
+    $controller->mainController();
 
 
     echo "Aloha";
-    
+
 ?>
