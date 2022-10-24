@@ -1,5 +1,5 @@
 <?php
-namespace group\hw3\helpers;
+namespace group\hw3\views\helpers;
 
 class Helper {
     private $helper;

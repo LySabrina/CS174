@@ -1,5 +1,5 @@
 <?php
-namespace group\hw3\elements;
+namespace group\hw3\views\elements;
 
 class Element {
     private $element;
