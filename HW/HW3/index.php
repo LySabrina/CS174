@@ -19,7 +19,7 @@ $view->renderView();
 if(isset($_POST['typeName'])){
     $typeName = $_POST['typeName'];
     $controller = new PolicyTypeController($model, $view);
-    $controller->processNewPolicyType($typeName);
+    $controller->processRequest($typeName);
 }
 
 

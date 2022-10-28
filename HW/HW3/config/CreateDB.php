@@ -11,11 +11,18 @@ if(!$conn = mysqli_select_db($db, $monsterDB)){
     $createQuery = "CREATE DATABASE " . $monsterDB;
     if(mysqli_query($db, $createQuery)){
         // echo("Successfuly made a MonsterInsurance DB");
-        $createTable = "CREATE TABLE Policy(policyTable varchar(20), policyName varchar(20), email varchar(20), duration int, description varchar(100))";
+        $createTable = "CREATE TABLE Policy(policyTable varchar(20), 
+                                            policyName varchar(20),
+                                            email varchar(20),
+                                            duration int, 
+                                            description varchar(100))";
+        $createTable2 = "create table PolicyType(policyType varchar(20))";
+        
         $db = mysqli_connect($dbHost, $dbuser, $dbPassword, $monsterDB);
-        if(!mysqli_query($db,$createTable)){
+        if(!mysqli_query($db,$createTable) || !mysqli_query($db, $createTable2)){
             echo mysqli_error($db);
         }
+        echo("Success");
     }
     else{
         echo("Failed to make db");

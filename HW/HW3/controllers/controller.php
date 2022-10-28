@@ -1,6 +1,7 @@
 <?php
 namespace group\hw3\controllers;
-
+require_once("views/View.php");
+require_once("models/Model.php");
 /**
  * Job of the controller is to be able to handle requests from client and use that 
  * request to call certain model function then call view function to render that page 
@@ -20,9 +21,12 @@ abstract class Controller{
         $this->view = $view;
         
     }
-
-    function render(){
-            
+    function getModel(){
+        return $this->model;
     }
 
+    function getView(){
+        return $this->view;
+    }
+   abstract function processRequest($data);
 }
