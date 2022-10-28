@@ -1,0 +1,28 @@
+<?php
+class LandingPage{
+    
+    public function renderView(){
+        ?>
+            <!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <title>MonsterInsurance Landing Page</title>
+            </head>
+            <body>
+                <h1><a> Monster Underwrites</a></h1>
+                <div class = 'container'>
+                    <h2>Policy Type</h2>
+                    <ul id = 'policyType'>
+                        <a href="index.php?c=PolicyTypeController"> [New Type]</a>
+                    </ul>
+                    <h2>Popular Policies</h2>
+                    <ul id='popular-policies'>
+
+                    </ul>
+                </div>
+            </body>
+            </html>
+        <?php
+    }
+}

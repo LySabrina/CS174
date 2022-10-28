@@ -9,6 +9,6 @@ class Model{
     }
 
     function insertPolicy(){
-        //functions to call db and insert into DB 
+        
     }
 }

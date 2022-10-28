@@ -1,4 +1,8 @@
-<!DOCTYPE html>
-<html>
-    <!-- some code to display policy type -->
-</html>
+namespace group\hw3\views;
+
+class PolicyType{
+    
+    public function renderView(){
+        
+    }
+}
