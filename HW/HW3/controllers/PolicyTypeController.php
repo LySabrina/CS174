@@ -13,6 +13,16 @@ class PolicyTypeController extends Controller{
         $query = "Insert into PolicyType (policyType) values(" ."'". $policyName . "'". ");";
         $model = $this->getModel();
         $model->insertPolicy($query);
-     
     }
+
+    function sayHello(){        
+        echo("hello from policyTypeController");
+    }
+
+    function getView(){
+        $view = parent::getView();
+        $view->renderView();
+    }
+
+    
 }

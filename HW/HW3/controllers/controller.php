@@ -28,5 +28,10 @@ abstract class Controller{
     function getView(){
         return $this->view;
     }
+
+    function render($data){
+        return $data;
+    }
    abstract function processRequest($data);
+
 }

@@ -1,4 +1,5 @@
 <?php
+namespace group\hw3\views;
 class LandingPage{
     
     public function renderView(){
@@ -10,11 +11,12 @@ class LandingPage{
                 <title>MonsterInsurance Landing Page</title>
             </head>
             <body>
-                <h1><a> Monster Underwrites</a></h1>
+                <h1><a href='index.php'> Monster Underwrites</a></h1>
                 <div class = 'container'>
                     <h2>Policy Type</h2>
                     <ul id = 'policyType'>
-                        <a href="index.php?c=PolicyTypeController"> [New Type]</a>
+                        <li><a href="index.php?c=PolicyTypeController"> [New Type]</a></li>
+                        
                     </ul>
                     <h2>Popular Policies</h2>
                     <ul id='popular-policies'>

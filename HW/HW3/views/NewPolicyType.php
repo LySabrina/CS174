@@ -28,4 +28,8 @@ class NewPolicyType {
             </html>
         <?php
     }
+
+    function sayHello(){
+        echo("Hello from view!");
+    }
 }
