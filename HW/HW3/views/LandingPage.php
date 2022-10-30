@@ -16,7 +16,9 @@ class LandingPage{
                     <h2>Policy Type</h2>
                     <ul id = 'policyType'>
                         <li><a href="index.php?c=PolicyTypeController"> [New Type]</a></li>
-                        
+                        <?php
+
+                        ?>
                     </ul>
                     <h2>Popular Policies</h2>
                     <ul id='popular-policies'>

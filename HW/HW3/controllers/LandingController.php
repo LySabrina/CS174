@@ -10,6 +10,9 @@ class LandingController extends Controller{
 
     function processRequest($data){
         $view = parent::getView();
+        $model = parent::getModel();
+        
+        
         $view->renderView();
     }
 }
