@@ -30,7 +30,7 @@ if(!$conn = mysqli_select_db($db, $monsterDB)){
         if(!mysqli_query($db,$createTable) || !mysqli_query($db, $createTable2)){
             echo mysqli_error($db);
         }
-        echo("Table Created Success");
+        echo("Tables Created Success");
     }
     else{
         echo("Failed to make db");
@@ -50,11 +50,11 @@ $createPolicyType->close();
 
 
 // TEST DELETE DUMMY DATA FOR POLICYTYPE
-$deletePolicyType = $db->prepare("DELETE FROM PolicyType WHERE policyTypeName = ?");
-$deletePolicyType->bind_param("s", $policyTypeName);
-$policyTypeName = "Magical Accident";
-$deletePolicyType->execute();
-$deletePolicyType->close();
+// $deletePolicyType = $db->prepare("DELETE FROM PolicyType WHERE policyTypeName = ?");
+// $deletePolicyType->bind_param("s", $policyTypeName);
+// $policyTypeName = "Magical Accident";
+// $deletePolicyType->execute();
+// $deletePolicyType->close();
 
 
 // POLICY TABLE STUFF

@@ -24,25 +24,6 @@ class Model{
         else{
             echo('success');
         }
-
-
-        // $stmt =  $mysqli->stmt_init();
-        // if ($stmt->prepare("SELECT FNAME, AGE FROM EMPLOYEE WHERE LNAME=? AND AGE > ?")) {
-        //     $lnames = ["Smith", "Jones", "Pollett"];
-        //     $min_age = 25;
-        //     foreach($lnames as $lname) {
-        //     $stmt->bind_param("si", $lname, $min_age); //s == string, i == int, d==double
-        //     $stmt->execute();
-        //     $stmt->bind_result($fname, $age);
-        //     $i = 0;
-        //     while($stmt->fetch()) {
-        //         print("The {$i}th person I found with last name $lname and age greater than $min_age was  $fname, $age\n");
-        //         $i++;
-        //     }
-        //     }
-        //     $stmt->close();
-
-
     }
 
 
