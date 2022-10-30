@@ -16,7 +16,7 @@ class Model{
         }
     }
 
-    function insertPolicy($data){
+    function insertPolicy($policyType, $policyName, $email, $duration, $description){
         if(!(mysqli_query($this->db, $data))){
             echo("error");
             exit();

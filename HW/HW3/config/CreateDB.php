@@ -13,14 +13,18 @@ if(!$conn = mysqli_select_db($db, $monsterDB)){
     $createQuery = "CREATE DATABASE " . $monsterDB;
     if(mysqli_query($db, $createQuery)){
         // echo("Successfuly made a MonsterInsurance DB");
-        $createTable = "CREATE TABLE Policy(policyID int, 
+        $createTable = "CREATE TABLE Policy(policyID int NOT NULL AUTO_INCREMENT, 
                                             policyTypeID int,
                                             policyName varchar(20),
                                             email varchar(20),
                                             duration int, 
-                                            description varchar(100))";
-        $createTable2 = "create table PolicyType(policyTypeID int,
-                                            policyTypeName varchar(20))";
+                                            description varchar(100),
+                                            PRIMARY KEY (policyID)
+                                            )";
+        $createTable2 = "create table PolicyType(policyTypeID int NOT NULL AUTO_INCREMENT,
+                                                 policyTypeName varchar(20),
+                                                 PRIMARY KEY (policyTypeID)
+                                                )";
         
         $db = mysqli_connect($dbHost, $dbuser, $dbPassword, $monsterDB);
         if(!mysqli_query($db,$createTable) || !mysqli_query($db, $createTable2)){
@@ -36,12 +40,12 @@ echo("Connection success");
 
 
 // MAKE DUMMY DATA
-$createPolicyType1 = "INSERT INTO PolicyType (policyTypeID, policyTypeName) VALUES (1, 'Lair')";
-$createPolicyType2 = "INSERT INTO PolicyType (policyTypeID, policyTypeName) VALUES (2, 'Magical Accident')";
-$createPolicy1 = "INSERT INTO Policy (policyID, policyTypeID, policyName, email, duration, description) 
-                  VALUES (1, 1, 'Coffin Relocation', 'jonsay157@gmail.com', 5, 'This is a funny description')";
-$createPolicy2 = "INSERT INTO Policy (policyID, policyTypeID, policyName, email, duration, description) 
-                  VALUES (2, 2, 'Silver Bullet', 'jh3209@gmail.com', 50, 'This is a cool description')";
+$createPolicyType1 = "INSERT INTO PolicyType (policyTypeName) VALUES ('Lair')";
+$createPolicyType2 = "INSERT INTO PolicyType (policyTypeName) VALUES ('Magical Accident')";
+$createPolicy1 = "INSERT INTO Policy (policyTypeID, policyName, email, duration, description) 
+                  VALUES (1, 'Coffin Relocation', 'jonsay157@gmail.com', 5, 'This is a funny description')";
+$createPolicy2 = "INSERT INTO Policy (policyTypeID, policyName, email, duration, description) 
+                  VALUES (2, 'Silver Bullet', 'jh3209@gmail.com', 50, 'This is a cool description')";
 
 mysqli_query($db,$createPolicyType1);
 mysqli_query($db,$createPolicyType2);
