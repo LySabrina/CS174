@@ -17,15 +17,19 @@ $model = new Model();
 $view = new LandingPage();
 
 // INSERT INTO POLICY TYPE
-$insertMe = "Insert Me";
-$model->insertPolicyType($insertMe);
-echo("Insert Completed");
+// $insertMe = "Insert Me";
+// $model->insertPolicyType($insertMe);
+// echo("Insert Completed");
 
 // DELETE FROM POLICY TYPE
-$deleteMe = "Insert Me";
-$model->deletePolicyType($deleteMe);
-echo("Delete Completed");
+// $deleteMe = "Insert Me";
+// $model->deletePolicyType($deleteMe);
+// echo("Delete Completed");
 
+// DELETE FROM POLICY TYPE
+// $deleteMe = "Insert Me";
+// $model->deletePolicyType($deleteMe);
+// echo("Delete Completed");
 
 
 // GET ID GIVEN NAME
