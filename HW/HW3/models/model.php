@@ -59,7 +59,20 @@ class Model{
         $getPolicyType->bind_param("s", $policyTypeName);
         $policyTypeName = $policyTypeToGet;
         $getPolicyType->execute();
+        $result = $getPolicyType->get_result();
         $getPolicyType->close();
+
+    function getPolicyTypeIDFromName($policyTypeToGet){
+        // $getPolicyTypeIDFromName = $db->prepare("SELECT policyTypeID FROM PolicyType WHERE policyTypeName = ?");
+        // $getPolicyTypeIDFromName->bind_param("s", $policyTypeName);
+        // $policyTypeName = $policyTypeToGet;
+        // $getPolicyTypeIDFromName->execute();
+        // $result = $getPolicyTypeIDFromName->bind_result($id);
+        // return $id;
+
+        return 1;
+        // $getPolicyTypeIDFromName->close();
+    }
 
 
         // $query = "SELECT policyTypeName from PolicyType";
