@@ -30,6 +30,21 @@ class Model{
     }
 
 
+    private function getPolicyTypeIDFromName($policyTypeToGet){
+        $getPolicyTypeIDFromName = $this->$db->prepare("SELECT policyTypeID FROM PolicyType WHERE policyTypeName = ?");
+        $getPolicyTypeIDFromName->bind_param("s", $policyTypeName);
+        $policyTypeName = $policyTypeToGet;
+        $getPolicyTypeIDFromName->execute();
+        $result = $getPolicyTypeIDFromName->bind_result($id);
+        // return $id;
+
+        return 10;
+
+
+        // $getPolicyTypeIDFromName->close();
+    }
+
+
     function deletePolicy($data){
         if(!(mysqli_select_db($this->db, $data))){
             echo("error in deleting");
@@ -37,41 +52,17 @@ class Model{
         }
     }
 
-    function deletePolicyType($data){
-        if(!(mysqli_select_db($this->db, $data))){
-            echo("error in deleting");
-            exit();
-        }
 
-    function getPolicy($data){
-
+    //FIX THISSS
+    function getPolicy($policyName){
+        $query = "SELECT * from Policy, PolicyType where Policy.policyTypeID = PolicyType.policyTypeID AND Policy.policyName =" . "'" . $policyName . "'";
+        echo($query);
+        $result = mysqli_query($this->db, $query);
+        $row = mysqli_fetch_array($result);
+        print_r($row);
+        return $row;
     }
 
-
-    function insertPolicyType($policyTypeNameToAdd){
-        $createPolicyType = $this->db->prepare("INSERT INTO PolicyType(policyTypeName) VALUES (?)");
-        $createPolicyType->bind_param("s", $policyTypeName);
-        $policyTypeName = $policyTypeNameToAdd;
-        $createPolicyType->execute();
-        $createPolicyType->close();
-    }
-    
-    function getAllPolicyType(){
-        $query = "SELECT policyTypeName from PolicyType";
-        //db is the connection
-        $results = mysqli_query($this->db, $query);
-        $num_rows = mysqli_num_rows($results);
-        $arr = [];  
-        for($j = 0; $j <$num_rows; $j++){
-            $row = mysqli_fetch_array($results);
-            $arr[$j] = $row;
-        }
-        return $arr;
-    }
-
-    function getPolicyType($policyType){
-        
-    }
 
     function getAllPolicy(){
         $query = "SELECT policyName from Policy";
@@ -85,14 +76,16 @@ class Model{
         return $arr;
     }
 
-    //FIX THISSS
-    function getPolicy($policyName){
-        $query = "SELECT * from Policy, PolicyType where Policy.policyTypeID = PolicyType.policyTypeID AND Policy.policyName =" . "'" . $policyName . "'";
-        echo($query);
-        $result = mysqli_query($this->db, $query);
-        $row = mysqli_fetch_array($result);
-        print_r($row);
-        return $row;
+
+    function insertPolicyType($policyTypeNameToAdd){
+        $createPolicyType = $this->db->prepare("INSERT INTO PolicyType(policyTypeName) VALUES (?)");
+        $createPolicyType->bind_param("s", $policyTypeName);
+        $policyTypeName = $policyTypeNameToAdd;
+        $createPolicyType->execute();
+        $createPolicyType->close();
+    }
+
+
     function deletePolicyType($policyTypeToDelete){
         $deletePolicyType = $this->$db->prepare("DELETE FROM PolicyType WHERE policyTypeName = ?");
         $deletePolicyType->bind_param("s", $policyTypeName);
@@ -113,17 +106,16 @@ class Model{
     }
 
 
-    function getPolicyTypeIDFromName($policyTypeToGet){
-        $getPolicyTypeIDFromName = $this->$db->prepare("SELECT policyTypeID FROM PolicyType WHERE policyTypeName = ?");
-        $getPolicyTypeIDFromName->bind_param("s", $policyTypeName);
-        $policyTypeName = $policyTypeToGet;
-        $getPolicyTypeIDFromName->execute();
-        $result = $getPolicyTypeIDFromName->bind_result($id);
-        // return $id;
-
-        return 10;
-
-
-        // $getPolicyTypeIDFromName->close();
+    function getAllPolicyType(){
+        $query = "SELECT policyTypeName from PolicyType";
+        //db is the connection
+        $results = mysqli_query($this->db, $query);
+        $num_rows = mysqli_num_rows($results);
+        $arr = [];  
+        for($j = 0; $j <$num_rows; $j++){
+            $row = mysqli_fetch_array($results);
+            $arr[$j] = $row;
+        }
+        return $arr;
     }
 }
