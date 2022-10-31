@@ -19,19 +19,19 @@ class Model{
     }
 
 
-    function insertPolicy($policyName, $policyTypeName, $email, $duration, $description){
-        if(!(mysqli_query($this->db, $data))){
-            echo("error");
-            exit();
-        }
-        else{
-            echo('success');
-        }
-    }
+    // function insertPolicy($policyName, $policyTypeName, $email, $duration, $description){
+    //     if(!(mysqli_query($this->db, $data))){
+    //         echo("error");
+    //         exit();
+    //     }
+    //     else{
+    //         echo('success');
+    //     }
+    // }
 
 
     private function getPolicyTypeIDFromName($policyTypeToGet){
-        $getPolicyTypeIDFromName = $this->$db->prepare("SELECT policyTypeID FROM PolicyType WHERE policyTypeName = ?");
+        $getPolicyTypeIDFromName = $this->db->prepare("SELECT policyTypeID FROM PolicyType WHERE policyTypeName = ?");
         $getPolicyTypeIDFromName->bind_param("s", $policyTypeName);
         $policyTypeName = $policyTypeToGet;
         $getPolicyTypeIDFromName->execute();
@@ -85,7 +85,7 @@ class Model{
 
 
     function deletePolicyType($policyTypeToDelete){
-        $deletePolicyType = $this->$db->prepare("DELETE FROM PolicyType WHERE policyTypeName = ?");
+        $deletePolicyType = $this->db->prepare("DELETE FROM PolicyType WHERE policyTypeName = ?");
         $deletePolicyType->bind_param("s", $policyTypeName);
         $policyTypeName = $policyTypeToDelete;
         $deletePolicyType->execute();
@@ -95,7 +95,7 @@ class Model{
 
     // WIP
     function getPolicyType($policyTypeToGet){
-        $getPolicyType = $this->$db->prepare("SELECT * FROM PolicyType WHERE policyTypeName = ?");
+        $getPolicyType = $this->db->prepare("SELECT * FROM PolicyType WHERE policyTypeName = ?");
         $getPolicyType->bind_param("s", $policyTypeName);
         $policyTypeName = $policyTypeToGet;
         $getPolicyType->execute();
