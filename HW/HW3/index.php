@@ -28,6 +28,15 @@ $view = new LandingPage();
 $controller = new LandingController($model, $view);
 $controller->renderView();
 
+
+
+if(isset($_GET['c']) && $_GET['c'] == 'PolicyTypeController'){
+    $typeC = "group\\hw3\\controllers\\" . $_GET['c'];
+    $view = new NewPolicyType();
+    $controller = new $typeC($model, $view);
+    $controller->renderView();
+}
+
 // INSERT INTO POLICY TYPE
 // $insertMe = "Insert Me";
 // $model->insertPolicyType($insertMe);
@@ -38,12 +47,6 @@ $controller->renderView();
 // $model->deletePolicyType($deleteMe);
 // echo("Delete Completed");
 
-if(isset($_GET['c']) && $_GET['c'] == 'PolicyTypeController'){
-    $typeC = "group\\hw3\\controllers\\" . $_GET['c'];
-    $view = new NewPolicyType();
-    $controller = new $typeC($model, $view);
-    $controller->renderView();
-}
 // DELETE FROM POLICY TYPE
 // $deleteMe = "Insert Me";
 // $model->deletePolicyType($deleteMe);
