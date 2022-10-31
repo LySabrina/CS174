@@ -52,7 +52,6 @@ if(isset($_GET['c']) && $_GET['c'] == 'PolicyTypeController'){
 // $model->deletePolicyType($deleteMe);
 // echo("Delete Completed");
 
-
 // GET ID GIVEN NAME
 // $policyTypeToGet = "Magical Accident";
 // echo $model->getPolicyTypeIDFromName($policyTypeToGet);
