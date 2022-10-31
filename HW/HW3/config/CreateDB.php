@@ -16,12 +16,13 @@ if(!$conn = mysqli_select_db($db, $monsterDB)){
         // echo("Successfuly made a MonsterInsurance DB");
 
 
-        // TO DO : ADD CONSTRAINT FOR NO DUPLICATES
+        // TO DO : FIGURE OUT WHY ID VALUES ARE BEING SKIPPED WHEN ADDING DUPLICATES
 
 
         $createPolicyTypeTable = "create table PolicyType(policyTypeID int NOT NULL AUTO_INCREMENT,
                                                         policyTypeName varchar(20),
-                                                        PRIMARY KEY (policyTypeID)
+                                                        PRIMARY KEY (policyTypeID),
+                                                        CONSTRAINT constraint_name UNIQUE (policyTypeName)
                                                         )";
         if(!mysqli_query($db, $createPolicyTypeTable)){
             echo mysqli_error($db);
