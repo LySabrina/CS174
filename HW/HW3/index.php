@@ -16,21 +16,25 @@ require_once("views/LandingPage.php");
 $model = new Model();
 $view = new LandingPage();
 
-$view->renderView();
+$policyTypeNameToAdd = "Insert Me";
+$model->insertPolicyType($policyTypeNameToAdd);
 
-if(isset($_POST['typeName'])){
-    $typeName = $_POST['typeName'];
-    $controller = new PolicyTypeController($model, $view);
-    $controller->processRequest($typeName);
-}
 
-if(isset($_GET['c'])){
-    $typeC = "group\\hw3\\controllers\\" . $_GET['c'];
-    $view = new NewPolicyType();
+// $view->renderView();
+
+// if(isset($_POST['typeName'])){
+//     $typeName = $_POST['typeName'];
+//     $controller = new PolicyTypeController($model, $view);
+//     $controller->processRequest($typeName);
+// }
+
+// if(isset($_GET['c'])){
+//     $typeC = "group\\hw3\\controllers\\" . $_GET['c'];
+//     $view = new NewPolicyType();
     
-    $controller = new $typeC($model, $view);
-    $controller->getView();
-}
+//     $controller = new $typeC($model, $view);
+//     $controller->getView();
+// }
 
 // if(isset($_GET['c']) && isset($_GET['m'])){                
 //     // seems like if we do not add group\\hw3\\controller, it does not work ? 
