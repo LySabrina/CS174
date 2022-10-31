@@ -29,9 +29,12 @@ abstract class Controller{
         return $this->view;
     }
 
+
+    //what is render() function?
     function render($data){
         return $data;
     }
+
 //    abstract function processRequest($data);
    
 

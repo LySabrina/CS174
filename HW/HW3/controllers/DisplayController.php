@@ -14,8 +14,8 @@ class DisplayController extends Controller{
         $view = parent::getView();
 
         $policyInfo = $model->getPolicy($policyName);
-
         $view->renderView($policyInfo);
     }
 
+    
 }

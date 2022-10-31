@@ -44,7 +44,6 @@ if(isset($_GET['c']) && $_GET['c'] == 'PolicyTypeController'){
 
 if(isset($_GET['c']) && $_GET['c'] == 'DisplayController'){
     $typeC = "group\\hw3\\controllers\\" . $_GET['c'];
-    echo($typeC);
     $view = new DisplayPolicyPage();
     $arg1 = $_GET['arg1'];
     $controller = new $typeC($model, $view);

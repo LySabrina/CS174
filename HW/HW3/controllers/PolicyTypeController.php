@@ -10,8 +10,7 @@ class PolicyTypeController extends Controller{
 
     function processRequest($policyName)
     {
-        
-        $model = $this->getModel(); //model->insertPolicyType($policyName);
+        $model = parent::getModel();
         $model->insertPolicyType($policyName);
     }
 
