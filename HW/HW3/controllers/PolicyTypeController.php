@@ -15,14 +15,8 @@ class PolicyTypeController extends Controller{
         $model->insertPolicy($query);
     }
 
-    function sayHello(){        
-        echo("hello from policyTypeController");
-    }
-
-    function getView(){
+    function renderView(){
         $view = parent::getView();
         $view->renderView();
     }
-
-    
 }

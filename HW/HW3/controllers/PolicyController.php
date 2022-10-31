@@ -11,8 +11,7 @@ class PolicyController extends Controller{
     function processRequest($data){
         ///so we gt a POST request and then we will have the type name. 
         if(isset($_POST['POLICY'])){
-            $policyName = $_POST['POLICY'];
-            
+            $policyName = $_POST['POLICY'];       
         }
     }
 }

@@ -8,8 +8,18 @@ class LandingController extends Controller{
         parent::__construct($model, $view);
     }
 
-    function processRequest($data){
+
+    /**
+     * LandingController is getting a GET Request, we should call the model functions to get the data 
+     * then calls the correct view 
+     */
+    function renderView(){
         $view = parent::getView();
-        $view->renderView();
+        $model = parent::getModel();
+        $arrPolicyType = $model->getAllPolicyType();
+        $arrPolicy = $model->getAllPolicy();
+        $view->renderView($arrPolicyType, $arrPolicy);
     }
-}
+
+
+}   
