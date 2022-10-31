@@ -73,9 +73,11 @@ class Model{
 
     //FIX THISSS
     function getPolicy($policyName){
-        $query = "SELECT * from Policy, PolicyType where Policy.policyTypeID = PolicyType.policyTypeID AND Policy.policyName =" . $policyName;
+        $query = "SELECT * from Policy, PolicyType where Policy.policyTypeID = PolicyType.policyTypeID AND Policy.policyName =" . "'" . $policyName . "'";
+        echo($query);
         $result = mysqli_query($this->db, $query);
         $row = mysqli_fetch_array($result);
+        print_r($row);
         return $row;
     }
 }
