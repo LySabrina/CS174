@@ -10,9 +10,9 @@ class PolicyTypeController extends Controller{
 
     function processRequest($policyName)
     {
-        $query = "Insert into PolicyType (policyType) values(" ."'". $policyName . "'". ");";
-        $model = $this->getModel();
-        $model->insertPolicy($query);
+        
+        $model = $this->getModel(); //model->insertPolicyType($policyName);
+        $model->insertPolicyType($policyName);
     }
 
     function renderView(){
