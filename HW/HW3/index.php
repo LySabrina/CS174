@@ -43,7 +43,3 @@ if(isset($_GET['c'])){
 //     // $controller->processRequest();
 
 // }
-
-
-
-
