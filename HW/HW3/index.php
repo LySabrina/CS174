@@ -59,11 +59,11 @@ if(isset($_GET['c']) && $_GET['c'] == 'PolicyTypeController'){
 
 // $view->renderView();
 
-// if(isset($_POST['typeName'])){
-//     $typeName = $_POST['typeName'];
-//     $controller = new PolicyTypeController($model, $view);
-//     $controller->processRequest($typeName);
-// }
+if(isset($_POST['typeName'])){
+    $typeName = $_POST['typeName'];
+    $controller = new PolicyTypeController($model, $view);
+    $controller->processRequest($typeName);
+}
 
 // if(isset($_GET['c'])){
 //     $typeC = "group\\hw3\\controllers\\" . $_GET['c'];

@@ -14,6 +14,11 @@ if(!$conn = mysqli_select_db($db, $monsterDB)){
     if(mysqli_query($db, $createQuery)){
         $db = mysqli_connect($dbHost, $dbuser, $dbPassword, $monsterDB);
         // echo("Successfuly made a MonsterInsurance DB");
+
+
+        // TO DO : ADD CONSTRAINT FOR NO DUPLICATES
+
+
         $createPolicyTypeTable = "create table PolicyType(policyTypeID int NOT NULL AUTO_INCREMENT,
                                                         policyTypeName varchar(20),
                                                         PRIMARY KEY (policyTypeID)
