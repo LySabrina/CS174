@@ -18,7 +18,7 @@ class NewPolicyType {
                 <title>Document</title>
             </head>
             <body>
-                <h1><a href="LandingPage.php">Monster Underwrites</a></h1>
+                <h1><a href="index.php">Monster Underwrites</a></h1>
                 <h2>New Policy Type</h2>
                 <form method='POST'>
                     <input type="text" placeholder="Type Name" name='typeName'>
