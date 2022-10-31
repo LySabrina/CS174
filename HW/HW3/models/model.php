@@ -39,7 +39,7 @@ class Model{
 
 
     function insertPolicyType($policyTypeNameToAdd){
-        $createPolicyType = $db->prepare("INSERT INTO PolicyType(policyTypeName) VALUES (?)");
+        $createPolicyType = $this->db->prepare("INSERT INTO PolicyType(policyTypeName) VALUES (?)");
         $createPolicyType->bind_param("s", $policyTypeName);
         $policyTypeName = $policyTypeNameToAdd;
         $createPolicyType->execute();
@@ -48,7 +48,7 @@ class Model{
     
 
     function deletePolicyType($policyTypeToDelete){
-        $deletePolicyType = $db->prepare("DELETE FROM PolicyType WHERE policyTypeName = ?");
+        $deletePolicyType = $this->$db->prepare("DELETE FROM PolicyType WHERE policyTypeName = ?");
         $deletePolicyType->bind_param("s", $policyTypeName);
         $policyTypeName = $policyTypeToDelete;
         $deletePolicyType->execute();
@@ -56,8 +56,9 @@ class Model{
     }
     
 
+    // WIP
     function getPolicyType($policyTypeToGet){
-        $getPolicyType = $db->prepare("SELECT * FROM PolicyType WHERE policyTypeName = ?");
+        $getPolicyType = $this->$db->prepare("SELECT * FROM PolicyType WHERE policyTypeName = ?");
         $getPolicyType->bind_param("s", $policyTypeName);
         $policyTypeName = $policyTypeToGet;
         $getPolicyType->execute();
@@ -67,11 +68,11 @@ class Model{
 
 
     function getPolicyTypeIDFromName($policyTypeToGet){
-        // $getPolicyTypeIDFromName = $db->prepare("SELECT policyTypeID FROM PolicyType WHERE policyTypeName = ?");
-        // $getPolicyTypeIDFromName->bind_param("s", $policyTypeName);
-        // $policyTypeName = $policyTypeToGet;
-        // $getPolicyTypeIDFromName->execute();
-        // $result = $getPolicyTypeIDFromName->bind_result($id);
+        $getPolicyTypeIDFromName = $this->$db->prepare("SELECT policyTypeID FROM PolicyType WHERE policyTypeName = ?");
+        $getPolicyTypeIDFromName->bind_param("s", $policyTypeName);
+        $policyTypeName = $policyTypeToGet;
+        $getPolicyTypeIDFromName->execute();
+        $result = $getPolicyTypeIDFromName->bind_result($id);
         // return $id;
 
         return 10;

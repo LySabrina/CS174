@@ -16,8 +16,21 @@ require_once("views/LandingPage.php");
 $model = new Model();
 $view = new LandingPage();
 
-$policyTypeNameToAdd = "Insert Me";
-$model->insertPolicyType($policyTypeNameToAdd);
+// INSERT INTO POLICY TYPE
+$insertMe = "Insert Me";
+$model->insertPolicyType($insertMe);
+echo("Insert Completed");
+
+// DELETE FROM POLICY TYPE
+$deleteMe = "Insert Me";
+$model->deletePolicyType($deleteMe);
+echo("Delete Completed");
+
+
+
+// GET ID GIVEN NAME
+// $policyTypeToGet = "Magical Accident";
+// echo $model->getPolicyTypeIDFromName($policyTypeToGet);
 
 
 // $view->renderView();
