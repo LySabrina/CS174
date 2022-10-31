@@ -32,6 +32,7 @@ abstract class Controller{
     function render($data){
         return $data;
     }
-   abstract function processRequest($data);
+//    abstract function processRequest($data);
+   
 
 }
