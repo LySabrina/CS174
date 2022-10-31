@@ -16,6 +16,7 @@ class Model{
         }
     }
 
+
     function insertPolicy($policyName, $policyTypeName, $email, $duration, $description){
         if(!(mysqli_query($this->db, $data))){
             echo("error");
@@ -54,6 +55,7 @@ class Model{
         $deletePolicyType->close();
     }
     
+
     function getPolicyType($policyTypeToGet){
         $getPolicyType = $db->prepare("SELECT * FROM PolicyType WHERE policyTypeName = ?");
         $getPolicyType->bind_param("s", $policyTypeName);
@@ -61,30 +63,20 @@ class Model{
         $getPolicyType->execute();
         $result = $getPolicyType->get_result();
         $getPolicyType->close();
+    }
+
 
     function getPolicyTypeIDFromName($policyTypeToGet){
-        // $getPolicyTypeIDFromName = $db->prepare("SELECT policyTypeID FROM PolicyType WHERE policyTypeName = ?");
-        // $getPolicyTypeIDFromName->bind_param("s", $policyTypeName);
-        // $policyTypeName = $policyTypeToGet;
-        // $getPolicyTypeIDFromName->execute();
-        // $result = $getPolicyTypeIDFromName->bind_result($id);
-        // return $id;
-
-        return 1;
+        $getPolicyTypeIDFromName = $db->prepare("SELECT policyTypeID FROM PolicyType WHERE policyTypeName = ?");
+        $getPolicyTypeIDFromName->bind_param("s", $policyTypeName);
+        $policyTypeName = $policyTypeToGet;
+        $getPolicyTypeIDFromName->execute();
+        $result = $getPolicyTypeIDFromName->bind_result($id);
+        return $fname;
         // $getPolicyTypeIDFromName->close();
     }
-
-
-        // $query = "SELECT policyTypeName from PolicyType";
-        // //db is the connection
-        // $results = mysqli_query($this->db, $query); //return an array?
-        // if(is_array($results)){
-        //     echo("is an array");
-        // }
-        // else{
-        //     echo("not an array");
-        // }
-    }
-
-  
 }
+
+    $model = new Model();
+    $test = $model->getPolicyTypeIDFromName("Magical Accident");
+    echo $test;
