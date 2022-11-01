@@ -5,7 +5,7 @@ $dbuser = 'root';
 $dbPassword = 'root';
 $monsterDB = "MonsterInsurance";
 
-$db = mysqli_connect($dbHost, $dbuser, $dbPassword);
+$db = new mysqli($dbHost, $dbuser, $dbPassword);
 $dropDatabase =  "DROP DATABASE IF EXISTS MonsterInsurance";
 mysqli_query($db, $dropDatabase);
 if(!$conn = mysqli_select_db($db, $monsterDB)){

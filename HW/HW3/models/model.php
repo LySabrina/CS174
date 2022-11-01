@@ -31,12 +31,15 @@ class Model{
 
 
     private function getPolicyTypeIDFromName($policyTypeToGet){
-        $getPolicyTypeIDFromName = $this->db->prepare("SELECT policyTypeID FROM PolicyType WHERE policyTypeName = ?");
+        $getPolicyTypeIDFromName = $this->db->prepare("SELECT policyTypeID FROM PolicyType WHERE policyTypeName = ? LIMIT 1");
         $getPolicyTypeIDFromName->bind_param("s", $policyTypeName);
         $policyTypeName = $policyTypeToGet;
         $getPolicyTypeIDFromName->execute();
-        $result = $getPolicyTypeIDFromName->bind_result($id);
-        // return $id;
+        $getPolicyTypeIDFromName->bind_result($id);
+        while($getPolicyTypeIDFromName->fetch()) {
+            return $id;
+        }
+ 
 
         return 10;
 
