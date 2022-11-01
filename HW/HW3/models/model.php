@@ -15,19 +15,19 @@ class Model{
             echo("error");
             exit();
         }
-        
     }
 
 
-    // function insertPolicy($policyName, $policyTypeName, $email, $duration, $description){
-    //     if(!(mysqli_query($this->db, $data))){
-    //         echo("error");
-    //         exit();
-    //     }
-    //     else{
-    //         echo('success');
-    //     }
-    // }
+    function insertPolicy($policyNameToAdd, $policyTypeNameToAdd, $emailToAdd, $durationToAdd, $descriptionToAdd){
+        $createPolicy = $this->$db->prepare("INSERT INTO Policy(policyName, policyTypeID, email, duration, details) VALUES (?,?,?,?,?)");
+        $createPolicy->bind_param("sisis", $policyName, $policyTypeID, $email, $duration, $details);
+        $policyName = $policyNameToAdd;
+        $policyTypeID = 1;
+        $email = $emailToAdd;
+        $duration = $durationToAdd;
+        $details = $descriptionToAdd;
+        $createPolicy->execute();
+    }
 
 
     private function getPolicyTypeIDFromName($policyTypeToGet){
@@ -39,12 +39,7 @@ class Model{
         while($getPolicyTypeIDFromName->fetch()) {
             return $id;
         }
- 
-
-        return 10;
-
-
-        // $getPolicyTypeIDFromName->close();
+        return 0;
     }
 
 

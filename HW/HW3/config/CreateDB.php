@@ -29,13 +29,14 @@ if(!$conn = mysqli_select_db($db, $monsterDB)){
         }
         echo("Policy Type Table Created");
         $createPolicyTable = "create table Policy(policyID int NOT NULL AUTO_INCREMENT, 
-                                                policyTypeID int,
                                                 policyName varchar(20),
+                                                policyTypeID int,
                                                 email varchar(20),
                                                 duration int, 
                                                 details varchar(100),
                                                 PRIMARY KEY (policyID),
-                                                CONSTRAINT FOREIGN KEY (policyTypeID) REFERENCES PolicyType(policyTypeID) ON DELETE CASCADE ON UPDATE CASCADE
+                                                CONSTRAINT FOREIGN KEY (policyTypeID) REFERENCES PolicyType(policyTypeID) ON DELETE CASCADE ON UPDATE CASCADE,
+                                                CONSTRAINT constraint_name UNIQUE (policyName)
                                             )";
         if(!mysqli_query($db,$createPolicyTable)){
             echo mysqli_error($db);
@@ -69,16 +70,16 @@ $createPolicyType->close();
 
 
 // MAKE DUMMY DATA FOR POLICY
-$createPolicy = $db->prepare("INSERT INTO Policy(policyTypeID, policyName, email, duration, details) VALUES (?,?,?,?,?)");
-$createPolicy->bind_param("issis", $policyTypeID, $policyName, $email, $duration, $details);
-$policyTypeID = 1;
+$createPolicy = $db->prepare("INSERT INTO Policy(policyName, policyTypeID, email, duration, details) VALUES (?,?,?,?,?)");
+$createPolicy->bind_param("sisis", $policyName, $policyTypeID, $email, $duration, $details);
 $policyName = 'Coffin Relocation';
+$policyTypeID = 1;
 $email = 'jonsay157@gmail.com';
 $duration = 5;
 $details = 'This is a funny description';
 $createPolicy->execute();
-$policyTypeID = 2;
 $policyName = 'Silver Bullet';
+$policyTypeID = 2;
 $email = 'jh3209@gmail.com';
 $duration = 50;
 $details = 'This is a cool description';
