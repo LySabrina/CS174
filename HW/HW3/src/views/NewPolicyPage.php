@@ -30,7 +30,7 @@ class NewPolicyPage{
                     <input type="text" id = 'duration' name = 'duration' required>
                     <br/>
                     <label for="description"> Description</label>
-                    <input type="text" id='description' name='description' required>
+                    <input type="text" id='description' name='details' required>
                     <br/>
                     <button type='submit' name='method' value='update'>Save so far</button>
                     <button type='submit' name = 'method' value ='insert'>Done</button>

@@ -22,7 +22,7 @@ class DisplayPolicyPage{
                 <h2><?=$policyInfo['policyName']?></h2>
                 <p><b>Duration:</b> <?= $policyInfo['duration'] ?> </p>
                 <br/>
-                <p><b>Description:</b> <?= $policyInfo['description'] ?></p>
+                <p><b>Description:</b> <?= $policyInfo['details'] ?></p>
                 <br/>
                 <p><b>Contact <?= $policyInfo['email']?></b></p>
             </body>

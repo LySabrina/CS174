@@ -29,7 +29,7 @@ class PolicyController implements Controller{
             $title = $_REQUEST['title'];
             $agentEmail = $_REQUEST['agentEmail'];
             $duration = $_REQUEST['duration'];
-            $description = $_REQUEST['description'];   
+            $description = $_REQUEST['details'];   
             $parentPolicyType = $_REQUEST['parentPolicyType'];
             $model->insertPolicy($title, $parentPolicyType, $agentEmail, $duration, $description);
             header("Location: index.php?c=PolicyController&m=showPolicyInformation&arg1=" . $title);
