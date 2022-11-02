@@ -34,6 +34,7 @@ if(!$conn = mysqli_select_db($db, $monsterDB)){
                                                 email varchar(20),
                                                 duration int, 
                                                 details varchar(100),
+                                                viewCount int DEFAULT 0,
                                                 PRIMARY KEY (policyID),
                                                 CONSTRAINT FOREIGN KEY (policyTypeID) REFERENCES PolicyType(policyTypeID) ON DELETE CASCADE ON UPDATE CASCADE
                                             )";

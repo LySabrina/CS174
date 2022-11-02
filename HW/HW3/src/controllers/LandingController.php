@@ -17,7 +17,7 @@ class LandingController implements Controller{
     {
         $model = new Model();     
         $allPolicyTypes = $model->getAllPolicyType();
-        $allPolicies = $model->getAllPolicy();
+        $allPolicies = $model->getThreeMostPopularPolicies();
 
         $view = new LandingPage();   
         $view->renderView($allPolicyTypes, $allPolicies);
