@@ -22,7 +22,12 @@ class Model{
         $createPolicy = $this->$db->prepare("INSERT INTO Policy(policyName, policyTypeID, email, duration, details) VALUES (?,?,?,?,?)");
         $createPolicy->bind_param("sisis", $policyName, $policyTypeID, $email, $duration, $details);
         $policyName = $policyNameToAdd;
-        $policyTypeID = 1;
+
+
+        // WIP
+        $policyTypeID = getPolicyTypeIDFromName($policyTypeNameToAdd);
+
+
         $email = $emailToAdd;
         $duration = $durationToAdd;
         $details = $descriptionToAdd;
@@ -60,7 +65,7 @@ class Model{
     }
 
 
-    function getAllPolicy(){
+    function getAllPolicies(){
         $query = "SELECT policyName from Policy";
         $results = mysqli_query($this->db,$query);
         $num_rows = mysqli_num_rows($results);
@@ -93,12 +98,15 @@ class Model{
 
     // WIP
     function getPolicyType($policyTypeToGet){
-        $getPolicyType = $this->db->prepare("SELECT * FROM PolicyType WHERE policyTypeName = ?");
+        $getPolicyType = $this->db->prepare("SELECT * FROM PolicyType WHERE policyTypeName = ? LIMIT 1");
         $getPolicyType->bind_param("s", $policyTypeName);
         $policyTypeName = $policyTypeToGet;
         $getPolicyType->execute();
-        $result = $getPolicyType->get_result();
-        $getPolicyType->close();
+        $getPolicyType->bind_result($policyTypeName);
+        while($getPolicyTypeIDFromName->fetch()) {
+            return $policyTypeName;
+        }
+        return null;
     }
 
 
