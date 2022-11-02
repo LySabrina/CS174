@@ -27,6 +27,7 @@ class LandingPage{
                                         
                                     ?>
                                 <?php
+                                
                             }
                         ?>
                     </ul>
