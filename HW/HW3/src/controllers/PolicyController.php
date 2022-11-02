@@ -8,7 +8,7 @@ use group\hw3\views\NewPolicyPage;
 
 require_once("views/NewPolicyPage.php");
 require_once("models/Model.php");
-class PolicyController {
+class PolicyController implements Controller{
 
     function __construct(){
         

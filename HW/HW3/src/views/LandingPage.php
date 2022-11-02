@@ -13,7 +13,7 @@ class LandingPage{
                 <title>Landing Page</title>
             </head>
             <body>
-                <h1><a href="index.php?c=LandingController&m=processRequest">Monster UnderWrites</a></h1>
+                <h1><a href="index.php">Monster UnderWrites</a></h1>
                 <div id='container'>
                     <h2>Policy Type</h2>
                     <ul id='policyTypeList'>

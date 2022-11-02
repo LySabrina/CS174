@@ -13,7 +13,7 @@ require_once("views/DisplayPolicyPage.php");
 require_once("views/PolicyTypePage.php");
 require_once("models/Model.php");
 
-class PolicyTypeController{
+class PolicyTypeController implements Controller{
     function __construct()
     {
         
