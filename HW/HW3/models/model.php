@@ -124,16 +124,13 @@ class Model{
     function getAllPolicyNamesFromPolicyType($policyTypeNameToGet) {
         $getAllPolicyNamesFromPolicyType = $this->db->prepare("SELECT policyName FROM Policy WHERE policyTypeID = ?");
         $getAllPolicyNamesFromPolicyType->bind_param("i", $policyTypeIDToGet);
-
         $policyTypeIDToGet = $this->getPolicyTypeIDFromPolicyTypeName($policyTypeNameToGet);
-        echo $policyTypeIDToGet;
         if($policyTypeIDToGet != 0) {
             $getAllPolicyNamesFromPolicyType->execute();
             $getAllPolicyNamesFromPolicyType->bind_result($policyName);
             $returnMe = null;
             while($getAllPolicyNamesFromPolicyType->fetch()) {
                 $returnMe = $policyName;
-                // echo $returnMe;
                 yield $returnMe;
             }
         }
@@ -155,7 +152,6 @@ class Model{
         while($getPolicyTypeIDFromPolicyTypeName->fetch()) {
             $returnMe = $id;
         }
-        // echo $returnMe;
         return $returnMe;
     }
 }
