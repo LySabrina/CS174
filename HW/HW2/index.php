@@ -173,7 +173,7 @@
                     }
                     ?>
                 </table>
-                <button type="submit" name="a" value='edit'>Create</button>
+                <button type="submit" name="a" value='edit'>Add Pie</button>
             </form>
         <?php
         // }
