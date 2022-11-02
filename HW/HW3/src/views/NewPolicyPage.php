@@ -19,7 +19,7 @@ class NewPolicyPage{
                 <h1><a href="index.php">Monster Underwriters/<?=$_REQUEST['arg1']?></a></h1>
                 <h2>New Policy</h2>
 
-                <form method="POST" action="index.php?c=PolicyController&m=processRequest" >
+                <form method="POST" action="index.php?c=PolicyController&m=processRequest&parentPolicyType=<?=$_REQUEST['arg1']?>" >
                     <label for='title'>Title:</label>
                     <input type="text" id= 'title' name = 'title' required >
                     <br/>

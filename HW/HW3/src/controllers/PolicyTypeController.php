@@ -28,9 +28,14 @@ class PolicyTypeController implements Controller{
     function showPolicyTypePage(){
         $view = new PolicyTypePage();
         $model = new Model();
+
+        $policyType = $_REQUEST['arg1'];
+
         $allPolicyTypes = $model->getAllPolicyType();
-        $allPolicies = $model->getAllPolicy();
-        $view->renderView($allPolicyTypes, $allPolicies);
+
+        $policies = $model->getAllPolicyNamesFromPolicyType($policyType);
+
+        $view->renderView($allPolicyTypes, $policies);
     }
 
     function processRequest(){

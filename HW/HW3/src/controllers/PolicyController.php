@@ -30,6 +30,15 @@ class PolicyController implements Controller{
             $agentEmail = $_REQUEST['agentEmail'];
             $duration = $_REQUEST['duration'];
             $description = $_REQUEST['description'];   
+            $parentPolicyType = $_REQUEST['parentPolicyType'];
+            $model->insertPolicy($title, $parentPolicyType, $agentEmail, $duration, $description);
+            header("Location: index.php?c=PolicyController&m=showPolicyInformation&arg1=" . $title);
+        }
+        else if($_REQUEST['method'] == 'delete'){
+            
+            $model->deletePolicy($_REQUEST['arg1']);
+            $parentPolicyType = $_REQUEST['arg2'];
+            header("Location: index.php?c=PolicyTypeController&m=showPolicyTypePage&arg1=" . $parentPolicyType);
         }
     }
 

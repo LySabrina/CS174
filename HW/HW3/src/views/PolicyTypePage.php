@@ -33,6 +33,14 @@ class PolicyTypePage{
                     <ul id ='policies'>
                         <li><a href="index.php?c=PolicyController&m=showForm&arg1=<?=$_REQUEST['arg1']?>">[New Policy]</a></li>
                         <?php
+                        foreach($arrPolicy as $policy){
+                            ?> 
+                                <li><a href="index.php?c=PolicyController&m=showPolicyInformation&arg1=<?=$policy?>">
+                                <?= $policy?></a>
+                                    <a href="index.php?c=PolicyController&m=processRequest&method=delete&arg1=<?=$policy?>&arg2=<?=$_REQUEST['arg1']?>">[DELETE]</a>
+                                 </li>
+                            <?php
+                        }
                         ?>
                         
                         
