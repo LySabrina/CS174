@@ -24,7 +24,7 @@ class Model{
         $createPolicy->bind_param("sisis", $policyName, $policyTypeID, $email, $duration, $details);
         
         
-        $policyTypeID = getPolicyTypeIDFromName($policyTypeNameToAdd);
+        $policyTypeID = $this->getPolicyTypeIDFromPolicyTypeName($policyTypeNameToAdd);
         if($policyTypeID != 0) {
             $policyName = $policyNameToAdd;
             $email = $emailToAdd;
@@ -36,22 +36,6 @@ class Model{
         else {
             $createPolicy->close();
         }
-    }
-
-
-    // WORKS
-    private function getPolicyTypeIDFromName($policyTypeNameToGet){
-        $getPolicyTypeIDFromName = $this->db->prepare("SELECT policyTypeID FROM PolicyType WHERE policyTypeName = ? LIMIT 1");
-        $getPolicyTypeIDFromName->bind_param("s", $policyTypeName);
-        $policyTypeName = $policyTypeNameToGet;
-        $getPolicyTypeIDFromName->execute();
-        $getPolicyTypeIDFromName->bind_result($id);
-        $returnMe = 0;
-        while($getPolicyTypeIDFromName->fetch()) {
-            $returnMe = $id;
-        }
-        echo $returnMe;
-        return $returnMe;
     }
 
 
@@ -134,5 +118,44 @@ class Model{
             $arr[$j] = $row;
         }
         return $arr;
+    }
+
+
+    function getAllPolicyNamesFromPolicyType($policyTypeNameToGet) {
+        $getAllPolicyNamesFromPolicyType = $this->db->prepare("SELECT policyName FROM Policy WHERE policyTypeID = ?");
+        $getAllPolicyNamesFromPolicyType->bind_param("i", $policyTypeIDToGet);
+
+        $policyTypeIDToGet = $this->getPolicyTypeIDFromPolicyTypeName($policyTypeNameToGet);
+        echo $policyTypeIDToGet;
+        if($policyTypeIDToGet != 0) {
+            $getAllPolicyNamesFromPolicyType->execute();
+            $getAllPolicyNamesFromPolicyType->bind_result($policyName);
+            $returnMe = null;
+            while($getAllPolicyNamesFromPolicyType->fetch()) {
+                $returnMe = $policyName;
+                // echo $returnMe;
+                yield $returnMe;
+            }
+        }
+        else {
+            $getAllPolicyNamesFromPolicyType->close();
+        }
+    }
+
+
+    // HELPER FUNCTION
+    // WORKS
+    function getPolicyTypeIDFromPolicyTypeName($policyTypeNameToGet){
+        $getPolicyTypeIDFromPolicyTypeName = $this->db->prepare("SELECT policyTypeID FROM PolicyType WHERE policyTypeName = ? LIMIT 1");
+        $getPolicyTypeIDFromPolicyTypeName->bind_param("s", $policyTypeName);
+        $policyTypeName = $policyTypeNameToGet;
+        $getPolicyTypeIDFromPolicyTypeName->execute();
+        $getPolicyTypeIDFromPolicyTypeName->bind_result($id);
+        $returnMe = 0;
+        while($getPolicyTypeIDFromPolicyTypeName->fetch()) {
+            $returnMe = $id;
+        }
+        // echo $returnMe;
+        return $returnMe;
     }
 }

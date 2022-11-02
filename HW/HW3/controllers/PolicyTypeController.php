@@ -11,7 +11,11 @@ class PolicyTypeController extends Controller{
     function processRequest($policyName)
     {     
         $model = parent::getModel();
-        $model->insertPolicyType($policyName);
+        // $model->getPolicyTypeIDFromPolicyTypeName($policyName);
+        $test = $model->getAllPolicyNamesFromPolicyType($policyName);
+        foreach($test as $name){
+            echo $name;
+        }
     }
 
     function renderView(){
