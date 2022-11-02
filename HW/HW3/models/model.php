@@ -35,10 +35,10 @@ class Model{
     }
 
 
-    private function getPolicyTypeIDFromName($policyTypeToGet){
+    private function getPolicyTypeIDFromName($policyTypeNameToGet){
         $getPolicyTypeIDFromName = $this->db->prepare("SELECT policyTypeID FROM PolicyType WHERE policyTypeName = ? LIMIT 1");
         $getPolicyTypeIDFromName->bind_param("s", $policyTypeName);
-        $policyTypeName = $policyTypeToGet;
+        $policyTypeName = $policyTypeNameToGet;
         $getPolicyTypeIDFromName->execute();
         $getPolicyTypeIDFromName->bind_result($id);
         while($getPolicyTypeIDFromName->fetch()) {
@@ -48,11 +48,12 @@ class Model{
     }
 
 
-    function deletePolicy($data){
-        if(!(mysqli_select_db($this->db, $data))){
-            echo("error in deleting");
-            exit();
-        }
+    function deletePolicy($policyToDelete){
+        $deletePolicy = $this->db->prepare("DELETE FROM Policy WHERE policyName = ?");
+        $deletePolicy->bind_param("s", $policyName);
+        $policyName = $policyToDelete;
+        $deletePolicy->execute();
+        $deletePolicy->close();
     }
 
 
