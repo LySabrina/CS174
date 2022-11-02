@@ -1,10 +1,6 @@
 <?php
-namespace group\hw3\views;
+namespace group\hw3;
 
-class View {
-    private $view;
-
-    function __construct() {
-        
-    }
+interface View{
+    function renderView();
 }

@@ -1,24 +1,15 @@
 <?php
 namespace group\hw3\controllers;
+require_once("views/View.php");
+require_once("models/Model.php");
+/**
+ * Job of the controller is to be able to handle requests from client and use that 
+ * request to call certain model function then call view function to render that page 
+ * 
+ * This interface requires that all classes that wants to be a controller must define procesRuqest
+ */
+interface Controller{
+    
+     function processRequest();    
 
-class Controller {
-    private $controller;
-
-    function __construct() {
-        
-    }
-
-
-    /**
-     * Main controller for handling requests to go to edit, detail, confirm or menu views
-     */
-    function mainController()
-    {
-        //if we get a request (either post or get with name ='a'), then if the value of 'a' is either edit, detail, 
-        //or confirm then we call their respective controller. else call menuView() function
-        // $view = (isset($_REQUEST['a']) && in_array($_REQUEST['a'], ['edit', 'detail', 'confirm'])) ? $_REQUEST['a'] . "Controller" : 'menuView';
-        // $view();
-
-        echo "Hello";
-    }
 }
