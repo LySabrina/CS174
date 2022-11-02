@@ -20,7 +20,7 @@ class Model{
 
     // SHOULD WORK BUT NOT TESTED
     function insertPolicy($policyNameToAdd, $policyTypeNameToAdd, $emailToAdd, $durationToAdd, $descriptionToAdd){
-        $createPolicy = $this->$db->prepare("INSERT INTO Policy(policyName, policyTypeID, email, duration, details) VALUES (?,?,?,?,?)");
+        $createPolicy = $this->db->prepare("INSERT INTO Policy(policyName, policyTypeID, email, duration, details) VALUES (?,?,?,?,?)");
         $createPolicy->bind_param("sisis", $policyName, $policyTypeID, $email, $duration, $details);
         
         
