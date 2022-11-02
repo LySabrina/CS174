@@ -178,6 +178,18 @@ class Model{
     }
 
 
+    function getAllPolicyNamesFromPolicyTypeAsArray($policyTypeNameToGet) {
+        $generator = $this->getAllPolicyNamesFromPolicyType($policyTypeNameToGet);
+        $arr = [];
+        $i = 0;
+        foreach($generator as $value){
+            $arr[$i] = $value;
+            $i++;
+        }
+        return $arr;
+    }
+
+
     // HELPER FUNCTION
     // WORKS
     function getPolicyTypeIDFromPolicyTypeName($policyTypeNameToGet){
