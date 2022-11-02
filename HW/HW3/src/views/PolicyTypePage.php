@@ -9,12 +9,10 @@ class PolicyTypePage{
             <html lang="en">
             <head>
                 <meta charset="UTF-8">
-                <meta http-equiv="X-UA-Compatible" content="IE=edge">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
                 <title>Policy Type Page</title>
             </head>
             <body>
-                <h1>Monster Underwriters</h1>
+                <h1> <a href="index.php">Monster Underwriters/<?= $_REQUEST['arg1'] ?></a> </h1>
                 <div class = 'container'>
                     <h2>Policy Type</h2>
                     <ul id='policyType'>
@@ -22,23 +20,22 @@ class PolicyTypePage{
                             for($i = 0; $i < count($arrPolicyType); $i++){
                                 $policyName = $arrPolicyType[$i]['policyTypeName'];
                                 ?>
-                                    <li> <a href = "index.php?c=DisplayController">
+                                    <li> <a href = "index.php?c=PolicyTypeController&m=showPolicyTypePage&arg1=<?=$policyName ?>">
                                     <?= $policyName ?> 
                                     </a> 
                                         </li>
                                         
                                 <?php
                             }
-                            
-
                         ?> 
+                    </ul>
                     <h2>Policies</h2>
                     <ul id ='policies'>
-                        <ul> [New Policiy]</ul>
+                        <li><a href="index.php?c=PolicyController&m=showForm&arg1=<?=$_REQUEST['arg1']?>">[New Policy]</a></li>
                         <?php
-
-                        ?>  
-                    </ul>
+                        ?>
+                        
+                        
                     </ul>
                 </div>
                 
