@@ -4,7 +4,6 @@ namespace group\hw3\controllers;
 
 use group\hw3\views\NewPolicyTypePage;
 use group\hw3\models\Model;
-use group\hw3\views\DisplayPolicyPage;
 use group\hw3\views\PolicyTypePage;
 
 require_once("controllers/Controller.php");
@@ -45,4 +44,12 @@ class PolicyTypeController implements Controller{
         header("Location: index.php");
     }
 
+    
+    function deletePolicyType(){
+        $model = new Model();
+        $policyType = $_REQUEST['arg1'];
+        $model->deletePolicyType($policyType);
+        header("Location: index.php");
+
+    }
 }

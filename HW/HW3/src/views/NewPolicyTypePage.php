@@ -22,7 +22,7 @@ class NewPolicyTypePage {
                 <h1><a href="index.php">Monster Underwrites</a></h1>
                 <h2>New Policy Type</h2>
                 <form method='POST' action = "index.php?c=PolicyTypeController&m=processRequest">
-                    <input type="text" placeholder="Type Name" name='typeName' required = 'required'>
+                    <input type="text" placeholder="Type Name" name='typeName' required >
                     <button type = 'submit' >Add</button>
                 </form>
             </body>

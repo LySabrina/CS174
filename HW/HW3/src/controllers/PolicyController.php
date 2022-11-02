@@ -7,6 +7,7 @@ use group\hw3\views\DisplayPolicyPage;
 use group\hw3\views\NewPolicyPage;
 
 require_once("views/NewPolicyPage.php");
+require_once("views/DisplayPolicyPage.php");
 require_once("models/Model.php");
 class PolicyController implements Controller{
 
@@ -47,8 +48,9 @@ class PolicyController implements Controller{
         $model = new Model();
         $policyName = $_REQUEST['arg1'];
         $policyInfo = $model->getPolicy($policyName);
-        $model->updatePolicyViewCount($policyName);
         $view->renderView($policyInfo);
     
     }
+    
+    
 }

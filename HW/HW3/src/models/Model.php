@@ -171,13 +171,14 @@ class Model{
                 $returnMe = $policyName;
                 yield $returnMe;
             }
+            return null;
         }
         else {
             $getAllPolicyNamesFromPolicyType->close();
         }
     }
 
-
+    
     function getAllPolicyNamesFromPolicyTypeAsArray($policyTypeNameToGet) {
         $generator = $this->getAllPolicyNamesFromPolicyType($policyTypeNameToGet);
         $arr = [];
@@ -189,7 +190,7 @@ class Model{
         return $arr;
     }
 
-
+    
     // HELPER FUNCTION
     // WORKS
     function getPolicyTypeIDFromPolicyTypeName($policyTypeNameToGet){
