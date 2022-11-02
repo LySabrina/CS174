@@ -7,6 +7,7 @@ use group\hw3\views\DisplayPolicyPage;
 use group\hw3\views\NewPolicyPage;
 
 require_once("views/NewPolicyPage.php");
+require_once("views/DisplayPolicyPage.php");
 require_once("models/Model.php");
 class PolicyController implements Controller{
 

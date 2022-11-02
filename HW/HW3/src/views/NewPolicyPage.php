@@ -1,6 +1,7 @@
 <?php
 
 namespace group\hw3\views;
+
 class NewPolicyPage{
 
     function __construct(){
