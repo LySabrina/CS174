@@ -5,6 +5,8 @@ require_once("controllers/LandingController.php");
 
 require_once("controllers/PolicyTypeController.php");
 require_once("controllers/PolicyController.php");
+
+session_start();
 $controller;
 $namespace = 'group\\hw3\\controllers\\';
 $controllerArr = [ 'PolicyTypeController', 'PolicyController'];

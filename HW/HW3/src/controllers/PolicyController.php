@@ -23,7 +23,25 @@ class PolicyController implements Controller{
     function processRequest(){
         $model = new Model();
 
-        if($_REQUEST['method'] == 'update'){
+        if($_REQUEST['method'] == 'save'){            
+            
+            $_SESSION['title'] = $_REQUEST['title'];
+            $_SESSION['agentEmail'] = $_REQUEST['agentEmail'];
+            $_SESSION['duration']= $_REQUEST['duration'];
+            $_SESSION['details']= $_REQUEST['details'];   
+            $_SESSION['parentPolicyType'] = $_REQUEST['parentPolicyType'];
+
+            if(filter_var($_SESSION['agentEmail'], FILTER_VALIDATE_EMAIL) == false
+                         || filter_var($_SESSION['duration'], FILTER_VALIDATE_INT) == false)
+           {
+                $_SESSION['failed'] = 1;
+                header("Location: index.php?c=PolicyController&m=showForm&arg1=" . $_SESSION['parentPolicyType']);                
+           }
+           else{
+            unset($_SESSION['failed']);
+            header("Location: index.php?c=PolicyTypeController&m=showPolicyTypePage&arg1=" . $_SESSION['parentPolicyType']);
+           }
+            
 
         }
         else if($_REQUEST['method'] == 'insert'){
@@ -32,8 +50,31 @@ class PolicyController implements Controller{
             $duration = $_REQUEST['duration'];
             $description = $_REQUEST['details'];   
             $parentPolicyType = $_REQUEST['parentPolicyType'];
-            $model->insertPolicy($title, $parentPolicyType, $agentEmail, $duration, $description);
-            header("Location: index.php?c=PolicyController&m=showPolicyInformation&arg1=" . $title);
+
+          
+            if(filter_var($agentEmail, FILTER_VALIDATE_EMAIL) == false
+                || filter_var($duration, FILTER_VALIDATE_INT) == false)
+            {
+                $_SESSION['title'] = $_REQUEST['title'];
+                $_SESSION['agentEmail'] = $_REQUEST['agentEmail'];
+                $_SESSION['duration']= $_REQUEST['duration'];
+                $_SESSION['details']= $_REQUEST['details'];   
+                $_SESSION['parentPolicyType'] = $_REQUEST['parentPolicyType'];
+                $_SESSION['failed'] = 1;
+                header("Location: index.php?c=PolicyController&m=showForm&arg1=" . $parentPolicyType);                
+            }
+            else{
+                unset($_SESSION['failed']);
+                unset($_SESSION['title']);
+                unset($_SESSION['agentEmail']);
+                unset($_SESSION['duration']);
+                unset($_SESSION['details']);
+
+                $model->insertPolicy($title, $parentPolicyType, $agentEmail, $duration, $description);
+                header("Location: index.php?c=PolicyController&m=showPolicyInformation&arg1=" . $title);    
+                }
+            
+            
         }
         else if($_REQUEST['method'] == 'delete'){
             
