@@ -45,13 +45,40 @@ class NewPolicyPage{
 
                     <br/>
                     <label for="duration">Duration:</label>
-                    <input type="text" id = 'duration' name = 'duration' required
-                    <?php
-                            if(isset($_SESSION['duration'])  && $_SESSION['parentPolicyType'] == $_REQUEST['arg1']){
-                                ?> value = <?= $_SESSION['duration']?><?php
+                    <select name="duration" id="duration">
+                        <option value="5"
+                        <?php
+                            if(isset($_SESSION['duration']) && $_SESSION['parentPolicyType'] == $_REQUEST['arg1']  && $_SESSION['duration'] == '5'){
+                                ?> selected<?php
                             }
                       ?>
-                    >
+                        >5 years</option>
+                        <option value="50"
+                        <?php
+                            if(isset($_SESSION['duration']) && $_SESSION['parentPolicyType'] == $_REQUEST['arg1'] && $_SESSION['duration'] == '50'){
+                                ?> selected <?php
+                            }
+                      ?>
+                        >50 years</option>
+                        <option value="100"
+                        <?php
+                            if(isset($_SESSION['duration']) && $_SESSION['parentPolicyType'] == $_REQUEST['arg1']  && $_SESSION['duration'] == '100'){
+                                
+                                ?> selected <?php
+                            }
+                            
+                      ?>
+                        >100 years</option>
+                        <option value="500"
+                        <?php
+                            if(isset($_SESSION['duration']) ==500 && $_SESSION['parentPolicyType'] == $_REQUEST['arg1']  && $_SESSION['duration'] == '500'){
+                                ?> selected<?php
+                            }
+                      ?>
+                        >500 years</option>
+                    </select>
+
+                    
                     <br/>
                     <label for="description"> Description</label>
                     <input type="text" id='description' name='details' required
@@ -66,6 +93,7 @@ class NewPolicyPage{
                     <button type='submit' name = 'method' value ='insert'>Done</button>
                 </form>
                 <?php
+                
                 if(isset($_SESSION['failed']) && $_SESSION['parentPolicyType'] == $_REQUEST['arg1']){{
                     echo("FAILED TO VALIDATE EMAIL OR DURATION");
                 }}
