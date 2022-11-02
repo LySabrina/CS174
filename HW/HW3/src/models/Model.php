@@ -71,6 +71,44 @@ class Model{
     }
 
 
+    function getThreeMostPopularPolicies(){
+        $query = "SELECT policyName from Policy order by viewCount DESC LIMIT 3";
+        $results = mysqli_query($this->db,$query);
+        $num_rows = mysqli_num_rows($results);
+        $arr = [];
+        for($j = 0; $j < $num_rows; $j++){
+            $row = mysqli_fetch_array($results);
+            $arr[$j] = $row;
+        }
+        return $arr;
+    }
+
+
+    function getPolicyViewCount($policyNameToGet){
+        $getPolicyViewCount = $this->db->prepare("SELECT viewCount from Policy where policyName = ?");
+        $getPolicyViewCount->bind_param("s", $policyName);
+        $policyName = $policyNameToGet;
+        $getPolicyViewCount->execute();
+        $getPolicyViewCount->bind_result($viewCount);
+        $returnMe = null;
+        while($getPolicyViewCount->fetch()) {
+            $returnMe = $viewCount;
+        }
+        echo $returnMe;
+        return $returnMe;
+    }
+
+
+    // WORKS
+    function updatePolicyViewCount($policyNameToGet){
+        $updatePolicyViewCount = $this->db->prepare("UPDATE Policy SET viewCount = viewCount + 1 WHERE policyName = ?");
+        $updatePolicyViewCount->bind_param("s", $policyName);
+        $policyName = $policyNameToGet;
+        $updatePolicyViewCount->execute();
+        $updatePolicyViewCount->close();
+    }
+
+
     // WORKS
     function insertPolicyType($policyTypeNameToAdd){
         $createPolicyType = $this->db->prepare("INSERT INTO PolicyType(policyTypeName) VALUES (?)");
@@ -133,13 +171,26 @@ class Model{
                 $returnMe = $policyName;
                 yield $returnMe;
             }
+            return null;
         }
         else {
             $getAllPolicyNamesFromPolicyType->close();
         }
     }
 
+    
+    function getAllPolicyNamesFromPolicyTypeAsArray($policyTypeNameToGet) {
+        $generator = $this->getAllPolicyNamesFromPolicyType($policyTypeNameToGet);
+        $arr = [];
+        $i = 0;
+        foreach($generator as $value){
+            $arr[$i] = $value;
+            $i++;
+        }
+        return $arr;
+    }
 
+    
     // HELPER FUNCTION
     // WORKS
     function getPolicyTypeIDFromPolicyTypeName($policyTypeNameToGet){

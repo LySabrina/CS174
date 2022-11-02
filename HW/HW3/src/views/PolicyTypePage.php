@@ -37,7 +37,9 @@ class PolicyTypePage{
                             ?> 
                                 <li><a href="index.php?c=PolicyController&m=showPolicyInformation&arg1=<?=$policy?>">
                                 <?= $policy?></a>
-                                    <a href="index.php?c=PolicyController&m=processRequest&method=delete&arg1=<?=$policy?>&arg2=<?=$_REQUEST['arg1']?>">[DELETE]</a>
+                                    <a href="index.php?c=PolicyController&m=processRequest&method=delete&arg1=<?=$policy?>&arg2=<?=$_REQUEST['arg1']?>">
+                                    <span title="Click here to delete">[DELETE]</span>
+                                    </a>
                                  </li>
                             <?php
                         }

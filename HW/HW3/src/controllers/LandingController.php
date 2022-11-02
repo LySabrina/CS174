@@ -16,10 +16,21 @@ class LandingController implements Controller{
     function processRequest()
     {
         $model = new Model();     
-        $allPolicyTypes = $model->getAllPolicyType();
-        $allPolicies = $model->getAllPolicy();
+        $allPolicyTypes = $model->getAllPolicyType();                 
+        $allPolicies = $model->getThreeMostPopularPolicies();          
 
+        $noPolicyArr = [];                                         
+        $j = 0;
+        for($i = 0 ; $i < count($allPolicyTypes); $i++){         
+            $arr = $model->getAllPolicyNamesFromPolicyTypeAsArray($allPolicyTypes[$i]['policyTypeName']);
+            if(empty($arr)){
+                $noPolicyArr[$j] = $allPolicyTypes[$i]['policyTypeName'];
+                $j++;
+            }
+        }
+       
         $view = new LandingPage();   
-        $view->renderView($allPolicyTypes, $allPolicies);
+        $view->renderView($allPolicyTypes, $allPolicies, $noPolicyArr);
     }
+
 }   

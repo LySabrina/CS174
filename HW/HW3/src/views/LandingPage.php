@@ -2,7 +2,7 @@
 namespace group\hw3\views;
 class LandingPage{
 
-    public function renderView($policyTypeArr, $popularPolicyArr){
+    public function renderView($policyTypeArr, $popularPolicyArr, $NoPoliciesArr){
         ?>
             <!DOCTYPE html>
             <html lang="en">
@@ -19,14 +19,25 @@ class LandingPage{
                     <ul id='policyTypeList'>
                         <li><a href="index.php?c=PolicyTypeController&m=showForm">[New Type]</a></li>
                         <?php
-                            foreach($policyTypeArr as $policyType){
-                                ?> 
-                                    <li><a href="index.php?c=PolicyTypeController&m=showPolicyTypePage&arg1=<?= $policyType['policyTypeName']?>">
-                                        <?=$policyType['policyTypeName'] ?> </a></li>
-                                    <?php
-                                        
+                            foreach($policyTypeArr as $policyType ){
+                                if(in_array($policyType['policyTypeName'], $NoPoliciesArr)){
+                                    
                                     ?>
+                                        <li><a href="index.php?c=PolicyTypeController&m=showPolicyTypePage&arg1=<?= $policyType['policyTypeName']?>">
+                                        <?=$policyType['policyTypeName'] ?> </a> <a href="index.php?c=PolicyTypeController&m=deletePolicyType&arg1=<?=$policyType['policyTypeName']?>">
+                                        
+                                        <span title="Click here to delete">[DELETE]</span></a></li>
+                                        
+                                    <?php
+                                }
+                                else{
+                                    
+                                    ?> 
+                                    <li><a href="index.php?c=PolicyTypeController&m=showPolicyTypePage&arg1=<?= $policyType['policyTypeName']?>">
+                                        <?=$policyType['policyTypeName'] ?> </a>
+                                    </li>
                                 <?php
+                                }
                             }
                         ?>
                     </ul>
