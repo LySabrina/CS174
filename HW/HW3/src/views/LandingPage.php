@@ -22,7 +22,12 @@ class LandingPage{
                             foreach($policyTypeArr as $policyType){
                                 ?> 
                                     <li><a href="index.php?c=PolicyTypeController&m=showPolicyTypePage&arg1=<?= $policyType['policyTypeName']?>">
-                                        <?=$policyType['policyTypeName'] ?> </a></li>
+                                        <?=$policyType['policyTypeName'] ?> </a>
+                                    <?php
+                                        
+                                    ?>
+
+                                    </li>
                                     <?php
                                         
                                     ?>
