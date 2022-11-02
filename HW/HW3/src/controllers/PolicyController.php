@@ -48,9 +48,7 @@ class PolicyController implements Controller{
         $model = new Model();
         $policyName = $_REQUEST['arg1'];
         $policyInfo = $model->getPolicy($policyName);
+        $model->updatePolicyViewCount($policyName);
         $view->renderView($policyInfo);
-    
-    }
-    
-    
+    }   
 }
