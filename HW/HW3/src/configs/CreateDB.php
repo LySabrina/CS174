@@ -1,9 +1,8 @@
 <?php
 
-$dbHost = 'localhost';
-$dbuser = 'root';
-$dbPassword = 'root';
-$monsterDB = "MonsterInsurance";
+
+require_once("Config.php");
+
 
 $db = new mysqli($dbHost, $dbuser, $dbPassword);
 $dropDatabase =  "DROP DATABASE IF EXISTS MonsterInsurance";
