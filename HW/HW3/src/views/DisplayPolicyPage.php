@@ -18,7 +18,9 @@ class DisplayPolicyPage{
                 <title>Document</title>
             </head>
             <body>
-                <h1><a href="index.php">Monster UnderWriters/<?=$policyInfo['policyName']?></a></h1>
+                <h1><a href="index.php">Monster UnderWriters/</a>
+                <a href=""><?=$policyInfo['policyName']?></a>
+            </h1>
                 <h2><?=$policyInfo['policyName']?></h2>
                 <p><b>Duration:</b> <?= $policyInfo['duration'] ?> </p>
                 <br/>
