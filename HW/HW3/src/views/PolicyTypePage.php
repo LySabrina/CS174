@@ -12,7 +12,10 @@ class PolicyTypePage{
                 <title>Policy Type Page</title>
             </head>
             <body>
-                <h1> <a href="index.php">Monster Underwriters/<?= $_REQUEST['arg1'] ?></a> </h1>
+                
+                <h1> <a href="index.php">Monster Underwriters/</a> 
+                <a href=""><?= $_REQUEST['arg1']?></a>
+            </h1>
                 <div class = 'container'>
                     <h2>Policy Type</h2>
                     <ul id='policyType'>
