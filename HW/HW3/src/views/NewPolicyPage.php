@@ -84,13 +84,7 @@ class NewPolicyPage{
                     <br/>
                     <label for="description"> Description</label>
                     <br/>
-                    <textarea name="details" id="description" cols="30" rows="5"> 
-                    <?php
-                            if(isset($_SESSION['details'])  && $_SESSION['parentPolicyType'] == $_REQUEST['arg1']){
-                                ?> <?= $_SESSION['details']?><?php
-                            }
-                      ?>    
-                    </textarea>
+                    <textarea name="details" id="description" cols="30" rows="5" required="required"><?php if(isset($_SESSION['details'])  && $_SESSION['parentPolicyType'] == $_REQUEST['arg1']){?> <?= $_SESSION['details']?><?php }?></textarea>
     
                     <br/>
                     <button type='submit' name='method' value='save'>Save so far</button>
