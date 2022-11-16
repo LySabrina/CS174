@@ -1,0 +1,10 @@
+<?php
+namespace group\hw4\Models;
+
+class QuizModel{
+
+    function getQuizData($data){
+
+    }
+    
+}
