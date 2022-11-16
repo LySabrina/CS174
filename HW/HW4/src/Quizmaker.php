@@ -1,9 +1,8 @@
 <?php
 
-
 $files = glob("data/english/*.txt");            //returns an array of .txt files
 $words = [];                                    //word array to hold all the words found inside the text file
-
+$associatedWords = [];                          //
 foreach($files as $f){
     $contents = file_get_contents($f);
     $string = str_replace(['?', '.', '!'], "", $contents);
@@ -33,14 +32,16 @@ foreach($files as $f){
                 }
             }
         }
+        //['the' => fiveGram]
+        $num = count($fivegram) / 5;
+        $associatedWords[$word] = array($num, $fivegram);
+        
         print_r($fivegram);
     }
    
     
     $words = array_merge($words, $rawTextArray);
 }
-$results = array_count_values(array_map("strtolower", $words));
-unset($results['']);
-print_r($results);
-
-
+// $results = array_count_values(array_map("strtolower", $words));
+// print_r($results);
+print_r($associatedWords);

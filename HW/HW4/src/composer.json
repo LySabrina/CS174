@@ -1,5 +1,7 @@
 {
     "name" : "mygroup/hw4",
-    "description" : "FALl-2022 CS174 HW4. Create a quiz with frequent common words"
-    //require version of monologue
+    "description" : "FALl-2022 CS174 HW4. Create a quiz with frequent common words",
+    "require": {
+        "monolog/monolog": "^3.2"
+    }
 }

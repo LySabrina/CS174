@@ -23,7 +23,7 @@ class LandingPage{
                   <p>Years Experience:</p>
                  <input type="number" name='experience' min = '0'  id='experience' >
 
-                 <button onclick="checkQuizRequirements()" >Start Quiz</button>
+                 <button onclick="checkQuizRequirements()"  name='quiz'>Start Quiz</button>
                  <button onclick="checkResultRequirements()">See Results</button>
             
                 </div>
@@ -37,7 +37,7 @@ class LandingPage{
                         alert("NOTHING SELECTED");
                     }
                     else{
-                        alert("selected");
+                        
                     }
                 }
 
