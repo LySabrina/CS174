@@ -8,11 +8,8 @@ foreach($files as $f){
     $string = str_replace(['?', '.', '!'], "", $contents);
     echo($string);
     $rawTextArray = explode(" ", $string);
-    // print_r($rawTextArray);
     $textArrayLowercase = array_map('strtolower', $rawTextArray);
-    // print_r($textArrayLowercase);
     $allUniqueWords = array_unique($textArrayLowercase);
-    // print_r($allUniqueWords);
 
 
     $length = count($textArrayLowercase);
@@ -35,8 +32,6 @@ foreach($files as $f){
         //['the' => fiveGram]
         $num = count($fivegram) / 5;
         $associatedWords[$word] = array($num, $fivegram);
-        
-        print_r($fivegram);
     }
    
     
