@@ -14,6 +14,7 @@ class LandingPage{
             </head>
             <body>
                  <h1><a href="">Landing Quiz</a></h1>
+                 <form method = 'GET'>
                  <div>
                        <select name="quiz-type" id="quiz-type" >
                          <option value="English">English</option>
@@ -23,10 +24,13 @@ class LandingPage{
                   <p>Years Experience:</p>
                  <input type="number" name='experience' min = '0'  id='experience' >
 
-                 <button onclick="checkQuizRequirements()"  name='quiz'>Start Quiz</button>
-                 <button onclick="checkResultRequirements()">See Results</button>
+                 <!-- <button onclick="checkQuizRequirements()"  name='quiz' value='start'>Start</button> -->
+                 <a href="index.php?c=QuizController&m=getQuiz">QuizController</a>
+                 <button onclick="checkResultRequirements()" name='quiz' value='results'>See Results</button>
             
                 </div>
+                 </form>
+                
             </body>
 
             <script>

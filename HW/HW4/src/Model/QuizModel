@@ -2,9 +2,16 @@
 namespace group\hw4\Models;
 
 class QuizModel{
+    function __construct()
+    {
+        
+    }
 
     function getQuizData($data){
-
+           //data/spanish
+           //data/english
+        $typeArr = glob("data/*", GLOB_ONLYDIR);
+        
+        
     }
-    
 }
