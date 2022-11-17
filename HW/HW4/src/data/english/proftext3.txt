@@ -1,0 +1,27 @@
+Here are the requirements on your project:
+
+Your homework should be developed in PHP as a composer project (server-side part), so should have a composer.json file.
+Your project is written using namespaces. You only create variables, arrays, objects, define new classes, etc. in the namespace cool_name_for_your_group\hw4 and subnamespaces thereof.
+The folder structure for your project should be the same as for HW3 and you should use the MVA design pattern for the web app part. As this project does not involve a database, you will not need a CreateDB.php file. As you will be using packagist.org you need a vendor folder. You should also have a executables folder which will hold your command-line QuizMaker.php. Finally, you should have a folder data which will be used to store corpuses for quizzes along with word quizzes.
+You should develop your whole project using git. If the grader does a diff between any two adjacent commits in the git log history, the number of lines of code that change should never be more than 100 lines.
+You should have a file issues.txt where you split the project into issues. Each issue should have a number by it and an initial description. If you are working in a group of more than one person, the issues should be assigned to team members. Beneath the initial description, should be bullet points for any discussion comments between team members (or between yourself if you are in a group one).
+Your program should use monolog/monolog to write a log message after QuizMaker.php processes each file in a folder.
+Quizmaker.php should generate quite data files as described above.
+The landing page should make use of Javascript to check when someone clicks on Start Quiz that both a quiz and a number of years of experience have been selected. If no, a message should be displayed, if yes, the user should be taken to the appropriate quiz.
+The landing page should make use of Javascript to check when someone clicks on see Results, that at least a Quiz has been selected before taking the user to the appropriate quiz results. If not, a message should be displayed.
+The controller for a quiz page, should call a QuizModel class' getQuizData method to read in the appropriate quiz info file.
+A quiz should consist of 20 multiple choice questions. To generate a question the controller should uniformly at random select a word from the quiz info data array keys. Since these keys are sorted by their rank (most common word rank 0, next rank 1, ...), it should determine the percentile range of the rank of the word to the nearest 5%. I.e., Is the word in the top 5% of most frequent words? Between top 5% and top 10%? etc. This should be included with the quiz problem as a hidden variable. Next your program should uniformly at random choose a 5 word gram from the list of 5 word grams you have for that word, a five word gram to use for the quiz problem. Finally, it should choose uniformly at random from the set of all words discovered three other words.
+When a user click's submit on a quiz, you should use Javascript to check that for each problem at least one checkbox was checked.
+To grade a quiz, your program should cycle over the quiz answers for each quiz problem. It should check for each checked box, the word that was checked did appear as a middle word of a 5 gram with the other 4 words that were given in the quiz problem. If the box was not checked, your program should check it didn't appear as the middle word. If each of the four boxes was checked correctly, the problem is deemed correctly answered.
+Your program should maintain a file in the data folder QuizStatistics.txt, it should consists of serialized array data for four subarrays for the different amount of language experience a user may have:
+["any" => [data for any], 
+"less10" => [data for less10], 
+"10-20" => [data for 10-20],  
+"20" => [data for >20]]
+The data for each of these categories should be an associative array for each of the 5% ranges:
+[0] => [num_correct, num_answered], 
+[5] => [num_correct, num_answered], 
+... 
+[95] => [num_correct, num_answered]]
+When a quiz problem is graded, the appropriate entries in this statistics table should be updated. Any reading or writing from the QuizStatistics.txt file should be done using models.
+On a Quiz Results page if the dropdown shows Experience, then the results displayed should be for any experience level. Otherwise, the results should be for the experience level requested. Your program should use an onchange event and Javascript to switch between the different experience level outputs.
