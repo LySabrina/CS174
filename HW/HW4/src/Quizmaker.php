@@ -1,7 +1,8 @@
-<?php
+<!-- <?php
 
 $files = glob("data/*",GLOB_ONLYDIR );      //gets an array of the subdirectories (e.xenglish, spanish)
-//O(n^4)....
+require __DIR__ . '/vendor/autoload.php';
+
 foreach($files as $f){
     echo("DIRECTORY: " . $f);
     //data/english
@@ -49,9 +50,7 @@ foreach($files as $f){
 
         fwrite($myFile, serialize($associatedWords));
         print_r($associatedWords);
-        unset($associatedWords);
-        
-    
+        unset($associatedWords);    
 }
 
 
@@ -113,4 +112,4 @@ foreach($files as $f){
 // // }
 // // $results = array_count_values(array_map("strtolower", $words));
 // // print_r($results);
-// print_r($associatedWords);
+// print_r($associatedWords); -->

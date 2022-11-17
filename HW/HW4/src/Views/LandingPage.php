@@ -13,22 +13,23 @@ class LandingPage{
                 <title>Document</title>
             </head>
             <body>
-                 <h1><a href="">Landing Quiz</a></h1>
-                 <form method = 'GET'>
-                 <div>
+                 <h1><a href="index.php">Landing Quiz</a></h1>
+
+                 <form method = 'POST' action="index.php?c=QuizController&m=processRequest" onsubmit="return validateForm()">
+                 
                        <select name="quiz-type" id="quiz-type" >
-                         <option value="English">English</option>
-                        <option value="Spanish">Spanish</option>
+                         <option value="english">English</option>
+                        <option value="novel">Novel</option>
                       </select>
 
-                  <p>Years Experience:</p>
+                <p>Years Experience:</p>
                  <input type="number" name='experience' min = '0'  id='experience' >
 
-                 <!-- <button onclick="checkQuizRequirements()"  name='quiz' value='start'>Start</button> -->
-                 <a href="index.php?c=QuizController&m=getQuiz">QuizController</a>
-                 <button onclick="checkResultRequirements()" name='quiz' value='results'>See Results</button>
+                 <button type='submit'  name='quiz' value='start'>Start</button>
+                 
+                 <button  type='submit' name='quiz' value='results'>See Results</button>
             
-                </div>
+                
                  </form>
                 
             </body>
@@ -36,27 +37,36 @@ class LandingPage{
             <script>
                   let experience = document.getElementById('experience');
                     let quizType = document.getElementById('quiz-type');   
+                    function validateForm(){
+                        if(experience.value == "" || quizType.value ==""){
+                            alert("INPUT EXPERIENCE AND QUIZ-TYPE");
+                            return false;
+                        }
+                    }
                 function checkQuizRequirements(){
                     if(experience.value == "" || quizType.value == ""){
                         alert("NOTHING SELECTED");
-                    }
-                    else{
                         
                     }
+                    else{
+                      
+                        echo("HERE: " . $_POST['quiz-type']);
+                    }
+                   
                 }
 
                 function checkResultRequirements(){
                     if(quizType.value=""){
                         alert("Select a quiz type please");
                     }
-                    else{
-                        alert("selected quiz type");
-                    }
+               
                 }
             </script>
             </html>
-       
+                
+            
         <?php
+
     }
 
 }

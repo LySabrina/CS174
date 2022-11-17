@@ -1,0 +1,50 @@
+<?php
+namespace group\hw4\Models;
+
+class QuizModel{
+    function __construct()
+    {
+        
+    }
+
+    function getQuizData($data){
+        if(empty($data)){
+            echo("EMPTY DATA QUIZ TYPE");
+        }
+    
+        $typeArr = glob("data/" . $data . ".txt");
+        // print_r($typeArr);
+        $unseralizedArr = unserialize(file_get_contents($typeArr[0]));
+    
+        $seenArr = array_rand($unseralizedArr, 20); //get 20 of the words and then get one of the 5-paragram 
+        $arr = [];
+        // print_r($seenArr);
+
+        //return an array of the word, and the 5gram string
+        // ['the' => "jump over the lazy dog"]
+        for($i = 0; $i < 20; $i++){
+            //gets the value of the key-word which would be an array in itself 
+            // echo(" WORD " . $seenArr[$i] . "\n");
+            $fiveGrams = $unseralizedArr[$seenArr[$i]][1];  
+            
+            $lengthOf5Gram = count($fiveGrams);
+            $num = mt_rand(1, $lengthOf5Gram / 5) * 5;                      //gets the element position to start collecting
+            if($num == $lengthOf5Gram){                                     //if its at the end of the 5gram, push back by 5
+                $num = $num - 5;
+            }   
+            $temp  = [];
+
+            for($j = 0; $j < 5; $j++){
+                    array_push($temp, $fiveGrams[$num]);
+                    $num = $num + 1;
+            }
+
+            $arr[$seenArr[$i]] =  $temp;    
+            // echo(" LENGTH: " . $lengthOf5Gram . " CHOSEN GRAM: " . $num . "\n");
+        
+        }
+    
+            // print_r($arr);
+            return $arr;
+    }
+}
