@@ -13,18 +13,17 @@ class QuizModel{
         }
     
         $typeArr = glob("data/" . $data . ".txt");
-        // print_r($typeArr);
+        
         $unseralizedArr = unserialize(file_get_contents($typeArr[0]));
     
         $seenArr = array_rand($unseralizedArr, 20); //get 20 of the words and then get one of the 5-paragram 
         $arr = [];
-        // print_r($seenArr);
-
-        //return an array of the word, and the 5gram string
-        // ['the' => "jump over the lazy dog"]
-        for($i = 0; $i < 20; $i++){
+        
+        //<---------------------------------------
+        //CHANGE BACK TO 20
+        for($i = 0; $i < 5; $i++){
             //gets the value of the key-word which would be an array in itself 
-            // echo(" WORD " . $seenArr[$i] . "\n");
+            
             $fiveGrams = $unseralizedArr[$seenArr[$i]][1];  
             
             $lengthOf5Gram = count($fiveGrams);
@@ -40,11 +39,33 @@ class QuizModel{
             }
 
             $arr[$seenArr[$i]] =  $temp;    
-            // echo(" LENGTH: " . $lengthOf5Gram . " CHOSEN GRAM: " . $num . "\n");
+            
         
         }
     
-            // print_r($arr);
+            
             return $arr;
     }
+    function gradeQuiz(){
+        
+    }   
+
+
+    function statisticFile($data){
+        $file = fopen("data/QuizStatistics" . "$data" . "txt", "w");
+
+    }
+
+    function get_percentile($percentile, $array) {
+        sort($array);
+        $index = ($percentile/100) * count($array);
+        if (floor($index) == $index) {
+             $result = ($array[$index-1] + $array[$index])/2;
+        }
+        else {
+            $result = $array[floor($index)];
+        }
+        return $result;
+    }
+    
 }

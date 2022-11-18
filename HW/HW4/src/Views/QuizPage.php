@@ -10,7 +10,9 @@ class QuizPage
 
     function renderView($data)
     {
-
+        $myKeys =array_keys($data);
+        $redirect = "index.php?c=QuizController&m=gradeQuiz&" . http_build_query(array('aParam' =>$myKeys));
+        echo($redirect);
 ?>
         <!DOCTYPE html>
         <html lang="en">
@@ -25,7 +27,7 @@ class QuizPage
         <body>
             <h1><a href="index.php">LanguageQuiz/</a><a href=""><?= $_POST['quiz-type'] ?></a></h1>
             <p>Select the words that could be used to fill in the blank (at least one should work).</p>
-            <form method="POST" action="index.php?c=QuizController&m=getResults" name='test' onsubmit="return validateForm()">
+            <form method="POST" action=<?=$redirect?> name='test' onsubmit="return validateForm()">
                 <ol>
                     <?php
                     $questionNum = 1;
@@ -48,13 +50,17 @@ class QuizPage
 
                                 <?php
                                 $choices = array_rand($data, 3);
-                                array_push($choices, $key);
+                                $correctAnswer = $key;
+                                array_push($choices, $correctAnswer);
                                 shuffle($choices);                  //randomize the order
                                 //choices with 3 random keys and the correct key
                                 foreach ($choices as $key => $value) {
+                                    
+                                
                                 ?>
-                                    <input type="checkbox" name=<?= $questionNum ?> value=<?= $value ?>>
-                                    <label for="<? $questionNum ?>"><?= $value ?></label>
+                                    
+                                    <input type="checkbox" name=<?= $questionNum ?> value=<?=$value?>>
+                                    <label for="<?= $questionNum ?>"><?= $value ?></label>
 
                                     <?php
                                     ?> <br /> <?php

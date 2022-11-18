@@ -7,6 +7,8 @@ use group\hw4\Views\QuizPage;
 require_once("Views/QuizPage.php");
 require_once("Models/QuizModel");
 class QuizController{
+    
+  
     function __construct()
     {
         
@@ -34,5 +36,11 @@ class QuizController{
     function getResults(){
         $type = $_POST['quiz-type'];          //gets the quiz type (ex. english, spanish, novel)
         echo("YE");
+    }
+
+    function gradeQuiz(){
+        $model = new QuizModel();
+        $arr = $_GET['aParam'];         //numeric array
+        print_r($arr);
     }
 }
