@@ -15,44 +15,118 @@ class QuizModel{
         $typeArr = glob("data/" . $data . ".txt");
         
         $unseralizedArr = unserialize(file_get_contents($typeArr[0]));
-    
-        $seenArr = array_rand($unseralizedArr, 20); //get 20 of the words and then get one of the 5-paragram 
-        $arr = [];
+        // print_r($unseralizedArr);
+        $seenArr = array_rand($unseralizedArr, 20); //get 20 of the words and then get one of the 5-paragram NUMERIC ARRAY
+        //get the words generated from this seenArr. then look into the unserialized array and get the number of occurneces
+        $occur = [];
         
-        //<---------------------------------------
-        //CHANGE BACK TO 20
-        for($i = 0; $i < 5; $i++){
-            //gets the value of the key-word which would be an array in itself 
-            
-            $fiveGrams = $unseralizedArr[$seenArr[$i]][1];  
-            
-            $lengthOf5Gram = count($fiveGrams);
-            $num = mt_rand(1, $lengthOf5Gram / 5) * 5;                      //gets the element position to start collecting
-            if($num == $lengthOf5Gram){                                     //if its at the end of the 5gram, push back by 5
-                $num = $num - 5;
-            }   
-            $temp  = [];
-
-            for($j = 0; $j < 5; $j++){
-                    array_push($temp, $fiveGrams[$num]);
-                    $num = $num + 1;
-            }
-
-            $arr[$seenArr[$i]] =  $temp;    
-            
-        
+        for($i = 0; $i<20; $i++){
+            $occur[$seenArr[$i]] = $unseralizedArr[$seenArr[$i]];           //get the value of $seenArr which is the word, and set it to the array of the original 
         }
+
+        //Bottom part is finding corresponding percentile
+        $temp = $occur;
+        sort($temp);
+        $ten = $this->get_percentile(10, $temp);           //get the necessary occurence to qualify as 10%
+        $twenty = $this->get_percentile(20, $temp);
+        $thirty = $this->get_percentile(30, $temp);
+        $fourty = $this->get_percentile(40, $temp);
+        $fifthy = $this->get_percentile(50, $temp);
+        $sixithy = $this->get_percentile(60, $temp);
+        
+        //THIS NEEDS FIXING. This is attempting to put percentile for each valeu
+        
+        foreach($occur as $key => $value){
+            if($value[0] >= $sixithy){
+                array_push($value, $sixithy);   
+                continue;
+            }
+            else if($value[0] >= $fifthy){
+                array_push($value, $fifthy);   
+                continue;
+            }
+            else if($value[0] >= $fourty){
+                array_push($value, $fourty);   
+                continue;
+            }
+            else if($value[0] >= $thirty){
+                array_push($value, $thirty);   
+                continue;
+            }
+            else if($value[0] >=$twenty){
+                array_push($value, $twenty);   
+                continue;
+            }
+            else if($value[0] > $fifthy){
+                array_push($value, $fifthy);   
+                continue;
+            }
+            $param = $value[1];
+            print_r($param);
+        }
+        
+        
+        
+        
+        
+        $arr = [];
+
+        
     
+        //<--------------------------------------- 
+        //CHANGE BACK TO 20
+        // for($i = 0; $i < 5; $i++){
+        //     //gets the value of the key-word which would be an array in itself 
             
+        //     $fiveGrams = $unseralizedArr[$seenArr[$i]][1];  
+            
+        //     $lengthOf5Gram = count($fiveGrams);
+        //     $num = mt_rand(1, $lengthOf5Gram / 5) * 5;                      //gets the element position to start collecting
+        //     if($num == $lengthOf5Gram){                                     //if its at the end of the 5gram, push back by 5
+        //         $num = $num - 5;
+        //     }   
+        //     $temp  = [];
+
+        //     for($j = 0; $j < 5; $j++){
+        //             array_push($temp, $fiveGrams[$num]);
+        //             $num = $num + 1;
+        //     }
+
+        //     $arr[$seenArr[$i]] =  $temp;    
+            
+        
+        // }
+        // print_r($arr);
+        // foreach($arr as $v){
+        //     print("HERE: ");
+        //     print_r( $v);
+            
+        // }
+        
             return $arr;
     }
-    function gradeQuiz(){
-        
+    function gradeQuiz($arr, $quizType){
+        $model = new QuizModel();
+ 
+        for($i = 1; $i <= count($arr); $i++){
+            $input = $_POST[$i];                //gets all the user inputted answers
+            for($j = 0; $j < count($input) && $j < count($arr); $j++){
+                if($input[$j] == $arr[$i - 1]){
+                    echo("CORRECT of problem " . $i);
+                }
+            }
+        }
     }   
 
 
-    function statisticFile($data){
-        $file = fopen("data/QuizStatistics" . "$data" . "txt", "w");
+    function statisticFile($quizType){
+        $file = fopen("data/QuizStatistics" . "txt", "w");
+
+        //first let us create our array then serialize and write into the file
+        $arr = [];
+        //quiz-type each has a value of an array of array
+        $arr[$quizType] = [['any'], ['less10'], ['10-20'], ['more20']];
+
 
     }
 

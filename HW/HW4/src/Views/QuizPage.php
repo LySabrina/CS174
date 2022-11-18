@@ -11,8 +11,8 @@ class QuizPage
     function renderView($data)
     {
         $myKeys =array_keys($data);
-        $redirect = "index.php?c=QuizController&m=gradeQuiz&" . http_build_query(array('aParam' =>$myKeys));
-        echo($redirect);
+        $redirect = "index.php?c=QuizController&m=gradeQuiz&quiz-type=" . $_POST['quiz-type']."&" . http_build_query(array('aParam' =>$myKeys));
+        
 ?>
         <!DOCTYPE html>
         <html lang="en">
@@ -25,7 +25,7 @@ class QuizPage
         </head>
 
         <body>
-            <h1><a href="index.php">LanguageQuiz/</a><a href=""><?= $_POST['quiz-type'] ?></a></h1>
+            <h1><a href="index.php">LanguageQuiz/</a><a href="#"><?= $_POST['quiz-type'] ?></a></h1>
             <p>Select the words that could be used to fill in the blank (at least one should work).</p>
             <form method="POST" action=<?=$redirect?> name='test' onsubmit="return validateForm()">
                 <ol>
@@ -58,17 +58,18 @@ class QuizPage
                                     
                                 
                                 ?>
-                                    
-                                    <input type="checkbox" name=<?= $questionNum ?> value=<?=$value?>>
+                                    <br/>
+                                    <input type="checkbox" name=<?= $questionNum . "[]"?> value=<?=$value?> >
                                     <label for="<?= $questionNum ?>"><?= $value ?></label>
 
                                     <?php
-                                    ?> <br /> <?php
+                                    
 
                                 }
                                                             $questionNum++;
                                                                 ?>
                             </div>
+                            <br/>
                         </li>
                     <?php
 

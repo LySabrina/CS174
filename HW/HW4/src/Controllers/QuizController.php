@@ -30,6 +30,11 @@ class QuizController{
         $type = $_POST['quiz-type'];          //gets the quiz type (ex. english, spanish, novel)
         
         $arr = $model->getQuizData($type);  
+        
+        // $fivePercent = $model->get_percentile(5, )
+        // foreach($arr as $key => $value){
+        //     array_push($value, )
+        // }
         $view->renderView($arr);
     }
 
@@ -40,7 +45,9 @@ class QuizController{
 
     function gradeQuiz(){
         $model = new QuizModel();
-        $arr = $_GET['aParam'];         //numeric array
-        print_r($arr);
+        $arr = $_GET['aParam'];         //numeric array of the whole test questions keys
+        $quizType = $_GET['quiz-type']; 
+       
+        $model->gradeQuiz($arr, $quizType);
     }
 }
