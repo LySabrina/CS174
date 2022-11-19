@@ -1,0 +1,16 @@
+001 Controller Classes
+Member: Sabrina Ly
+Description:
+    Create the LandingController + QuizController
+
+Discussion:
+    Sabrina Ly: Finished creating the basic LandingController + QuizController.
+                Just need the view and model classes in order to call their functions from the controller.
+                
+002 QuizMaker.php
+Member: Jason 
+Description
+
+Discussion:
+    Sabrina Ly: 
+
