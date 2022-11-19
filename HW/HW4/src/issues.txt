@@ -6,11 +6,31 @@ Description:
 Discussion:
     Sabrina Ly: Finished creating the basic LandingController + QuizController.
                 Just need the view and model classes in order to call their functions from the controller.
+    Sabrina Ly: Update. I created the views and model class. All I need now is to improve on the model class
                 
 002 QuizMaker.php
 Member: Jason 
 Description
+    Create the serialized array for the quizzes
+Discussion:
+    Jason: Created the QuizMaker.php and logger for it
+    Sabrina Ly: Got it, works well.
+
+003 Statistics 
+Member: Sabrina and Jason
+Description: 
+    Assign Statistics numbers to each problem. 
 
 Discussion:
-    Sabrina Ly: 
+    Sabrina Ly: I am currently struggling with creating the statistics percentile and attatching to
+        the problem questions.
+    
+    
 
+004 Model Classes
+Member: Sabrina & Jason
+Description:
+    Create a model class that can write and read from the QuizStatistics.txt. 
+
+Discussion:
+    Sabrina Ly: Currently, I can create the file but I can not create the arrays for the text file

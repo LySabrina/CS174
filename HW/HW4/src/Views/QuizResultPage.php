@@ -1,12 +1,12 @@
 <?php
-
+namespace group\hw4\Views;
 class QuizResultPage{
     function __construct()
     {
         
     }
 
-    function renderView($data){
+    function renderView($data, $quizType){
         ?>
             <!DOCTYPE html>
             <html lang="en">
@@ -17,7 +17,7 @@ class QuizResultPage{
                 <title>Quiz Result Page</title>
             </head>
             <body>
-                <h1><a href="index.php">Language Quiz</a> <a href="">PLACEHOLDER QUIZ</a></h1>
+                <h1><a href="index.php">Language Quiz/</a> <a href="#"><?=$quizType?></a></h1>
                 <div>
                     <form action="index.php?c=QuizController">
                         <select name="experience-level" id="">
