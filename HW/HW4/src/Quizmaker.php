@@ -62,7 +62,7 @@ foreach($files as $f){
                 return $b[0] - $a[0]  ;
             });
         }
-
+        
         $logger->info("Finished File");
         
     }
