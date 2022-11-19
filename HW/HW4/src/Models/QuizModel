@@ -25,94 +25,104 @@ class QuizModel{
         }
 
         //Bottom part is finding corresponding percentile
-        $temp = $occur;
+        //value of occur key is an array
+        $temp = array_values(array_values($occur));
         sort($temp);
-        $ten = $this->get_percentile(10, $temp);           //get the necessary occurence to qualify as 10%
-        $twenty = $this->get_percentile(20, $temp);
-        $thirty = $this->get_percentile(30, $temp);
-        $fourty = $this->get_percentile(40, $temp);
-        $fifthy = $this->get_percentile(50, $temp);
-        $sixithy = $this->get_percentile(60, $temp);
-        
-        //THIS NEEDS FIXING. This is attempting to put percentile for each valeu
-        
-        foreach($occur as $key => $value){
-            if($value[0] >= $sixithy){
-                array_push($value, $sixithy);   
-                continue;
-            }
-            else if($value[0] >= $fifthy){
-                array_push($value, $fifthy);   
-                continue;
-            }
-            else if($value[0] >= $fourty){
-                array_push($value, $fourty);   
-                continue;
-            }
-            else if($value[0] >= $thirty){
-                array_push($value, $thirty);   
-                continue;
-            }
-            else if($value[0] >=$twenty){
-                array_push($value, $twenty);   
-                continue;
-            }
-            else if($value[0] > $fifthy){
-                array_push($value, $fifthy);   
-                continue;
-            }
-            $param = $value[1];
-            print_r($param);
+        $temp2 = [];
+        // print_r($temp[0][0]);
+        for($i = 0; $i < count($temp); $i++){
+            array_push($temp2, $temp[$i][0]);
         }
         
         
+
         
+        //THIS NEEDS FIXING. This is attempting to put percentile for each valeu
+   
+        // foreach($occur as $key => $value){
+
+        //     // print_r("VALUE $value[0]" . "\n");
+       
+        //     if($value[0] >= $sixithy){
+        //                 $num = array_push($value, $sixithy);   
+        //                 print_r($value);
+        //                 continue;
+        //             }
+        //             else if($value[0] >= $fifthy){
+        //                 $num = array_push($value, $fifthy);   
+        //                 print_r($value);
+        //                 continue;
+        //             }
+        //             else if($value[0] >= $fourty){
+        //                 $num = array_push($value, $fourty);   
+        //                 print_r($value);
+        //                 continue;
+        //             }
+        //             else if($value[0] >= $thirty){
+        //                 $num = array_push($value, $thirty);   
+        //                 print_r($value);
+        //                 continue;
+        //             }
+        //             else if($value[0] >= $twenty){
+        //                 $num = array_push($value, $twenty);   
+        //                 print_r($value);
+        //                 continue;
+        //             }
+        //             else if($value[0] >= $tens){
+        //                 $num = array_push($value, $fifthy);   
+        //                 print_r($value);
+        //                 continue;
+        //             }
+        //         // print("MY ARRAY: \n");
+        //         // print_r($value);
+        // }
+        
+        
+        // print_r($occur);
         
         
         $arr = [];
 
+      
+        // <--------------------------------------- 
         
-    
-        //<--------------------------------------- 
-        //CHANGE BACK TO 20
-        // for($i = 0; $i < 5; $i++){
-        //     //gets the value of the key-word which would be an array in itself 
+        for($i = 0; $i < 20; $i++){
+            //gets the value of the key-word which would be an array in itself 
             
-        //     $fiveGrams = $unseralizedArr[$seenArr[$i]][1];  
+            $fiveGrams = $unseralizedArr[$seenArr[$i]][1];  
+            // $fiveGrams = $occur[$i][1];
             
-        //     $lengthOf5Gram = count($fiveGrams);
-        //     $num = mt_rand(1, $lengthOf5Gram / 5) * 5;                      //gets the element position to start collecting
-        //     if($num == $lengthOf5Gram){                                     //if its at the end of the 5gram, push back by 5
-        //         $num = $num - 5;
-        //     }   
-        //     $temp  = [];
+            $lengthOf5Gram = count($fiveGrams);
+            $num = mt_rand(1, $lengthOf5Gram / 5) * 5;                      //gets the element position to start collecting
+            if($num == $lengthOf5Gram){                                     //if its at the end of the 5gram, push back by 5
+                $num = $num - 5;
+            }   
+            $temp  = [];
 
-        //     for($j = 0; $j < 5; $j++){
-        //             array_push($temp, $fiveGrams[$num]);
-        //             $num = $num + 1;
-        //     }
+            for($j = 0; $j < 5; $j++){
+                    array_push($temp, $fiveGrams[$num]);
+                    $num = $num + 1;
+            }
 
-        //     $arr[$seenArr[$i]] =  $temp;    
+            $arr[$seenArr[$i]] =  $temp;    
             
         
-        // }
-        // print_r($arr);
-        // foreach($arr as $v){
-        //     print("HERE: ");
-        //     print_r( $v);
-            
-        // }
+        }
+
         
             return $arr;
     }
+
+
+
     function gradeQuiz($arr, $quizType){
         $model = new QuizModel();
- 
+        $this->statisticFile($quizType);            //used for writing and creating file
         for($i = 1; $i <= count($arr); $i++){
             $input = $_POST[$i];                //gets all the user inputted answers
             for($j = 0; $j < count($input) && $j < count($arr); $j++){
                 if($input[$j] == $arr[$i - 1]){
-                    echo("CORRECT of problem " . $i);
+                    echo("You answered correctly of problem: " . $i ."\n");
                 }
             }
         }
@@ -120,26 +130,17 @@ class QuizModel{
 
 
     function statisticFile($quizType){
-        $file = fopen("data/QuizStatistics" . "txt", "w");
+        $file = fopen("data/QuizStatistics" . ".txt", "w");
 
         //first let us create our array then serialize and write into the file
         $arr = [];
         //quiz-type each has a value of an array of array
         $arr[$quizType] = [['any'], ['less10'], ['10-20'], ['more20']];
-
+        $serializedArr = serialize($arr);
+        fwrite($file, $serializedArr);
 
     }
 
-    function get_percentile($percentile, $array) {
-        sort($array);
-        $index = ($percentile/100) * count($array);
-        if (floor($index) == $index) {
-             $result = ($array[$index-1] + $array[$index])/2;
-        }
-        else {
-            $result = $array[floor($index)];
-        }
-        return $result;
-    }
+
     
 }
